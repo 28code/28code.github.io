@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>28code</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://28code.com/"/>
+  <updated>2018-11-17T03:20:20.000Z</updated>
+  <id>http://28code.com/</id>
+  
+  <author>
+    <name>28code</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>kubernetes 13.3.3 安装过程</title>
+    <link href="http://28code.com/2018/11/17/kubernetes_install/"/>
+    <id>http://28code.com/2018/11/17/kubernetes_install/</id>
+    <published>2018-11-17T03:20:20.000Z</published>
+    <updated>2018-11-17T03:20:20.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>kubernetes 13.3.3 安装过程</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;kubernetes 13.3.3 安装过程&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="kubernetes" scheme="http://28code.com/categories/kubernetes/"/>
+    
+    
+      <category term="docker" scheme="http://28code.com/tags/docker/"/>
+    
+      <category term="kubernetes" scheme="http://28code.com/tags/kubernetes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>5分钟带你体验kubernetes LB负载均衡集群和HA高可用性集群</title>
+    <link href="http://28code.com/2018/10/15/kubernetes_lb_ha/"/>
+    <id>http://28code.com/2018/10/15/kubernetes_lb_ha/</id>
+    <published>2018-10-15T03:20:20.000Z</published>
+    <updated>2018-10-15T03:20:20.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>5分钟带你体验kubernetes LB(Load Balancing)负载均衡集群、HA(High Availability)高可用性集群</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;5分钟带你体验kubernetes LB(Load Balancing)负载均衡集群、HA(High Availability)高可用性集群&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="kubernetes" scheme="http://28code.com/categories/kubernetes/"/>
+    
+    
+      <category term="docker" scheme="http://28code.com/tags/docker/"/>
+    
+      <category term="kubernetes" scheme="http://28code.com/tags/kubernetes/"/>
+    
+  </entry>
+  
+</feed>
