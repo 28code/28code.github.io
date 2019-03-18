@@ -109,13 +109,18 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="28code">
-<meta property="og:url" content="http://28code.com/index.html">
+  <meta name="description" content="作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 1.概述今天我们要搭建一个kubernetes环境，主要使用kubeadm工具来搭建。 2.kubeadm简介kubeadm是Kubernetes官方提供的用于快速安装Kubernetes集群的工具。点击查看Kubernetes发布的版本 3.操作系统准备3.1. 硬件环境我们使用VM虚拟机来安装一个master节点两个node节">
+<meta name="keywords" content="docker,kubernetes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kubernetes 13.3.4 安装过程">
+<meta property="og:url" content="http://28code.com/2019/03/10/kubernetes_install/index.html">
 <meta property="og:site_name" content="28code">
+<meta property="og:description" content="作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 1.概述今天我们要搭建一个kubernetes环境，主要使用kubeadm工具来搭建。 2.kubeadm简介kubeadm是Kubernetes官方提供的用于快速安装Kubernetes集群的工具。点击查看Kubernetes发布的版本 3.操作系统准备3.1. 硬件环境我们使用VM虚拟机来安装一个master节点两个node节">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-10T03:20:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="28code">
+<meta name="twitter:title" content="kubernetes 13.3.4 安装过程">
+<meta name="twitter:description" content="作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 1.概述今天我们要搭建一个kubernetes环境，主要使用kubeadm工具来搭建。 2.kubeadm简介kubeadm是Kubernetes官方提供的用于快速安装Kubernetes集群的工具。点击查看Kubernetes发布的版本 3.操作系统准备3.1. 硬件环境我们使用VM虚拟机来安装一个master节点两个node节">
 
 
 
@@ -124,7 +129,7 @@
 
 
 
-  <link rel="canonical" href="http://28code.com/">
+  <link rel="canonical" href="http://28code.com/2019/03/10/kubernetes_install/">
 
 
 
@@ -134,7 +139,7 @@
   };
 </script>
 
-  <title>28code</title>
+  <title>kubernetes 13.3.4 安装过程 | 28code</title>
   
 
 
@@ -184,8 +189,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
 
@@ -228,7 +232,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
 
     
     
@@ -355,9 +359,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -389,10 +393,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/10/kubernetes_install/" class="post-title-link" itemprop="http://28code.com/index.html">kubernetes 13.3.4 安装过程</a>
+          <h1 class="post-title" itemprop="name headline">kubernetes 13.3.4 安装过程
               
             
           </h1>
@@ -451,6 +452,13 @@
           
 
           
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
 
           
 
@@ -469,9 +477,7 @@
       
 
       
-        
-          
-            <p>作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。</p>
+        <p>作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。</p>
 <h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h3><p>今天我们要搭建一个kubernetes环境，主要使用kubeadm工具来搭建。</p>
 <h3 id="2-kubeadm简介"><a href="#2-kubeadm简介" class="headerlink" title="2.kubeadm简介"></a>2.kubeadm简介</h3><p>kubeadm是Kubernetes官方提供的用于快速安装Kubernetes集群的工具。<br><strong><a href="https://github.com/kubernetes/kubernetes/releases" title="Kubernetes发布的版本" target="_blank" rel="noopener">点击查看Kubernetes发布的版本</a></strong></p>
 <h3 id="3-操作系统准备"><a href="#3-操作系统准备" class="headerlink" title="3.操作系统准备"></a>3.操作系统准备</h3><h4 id="3-1-硬件环境"><a href="#3-1-硬件环境" class="headerlink" title="3.1. 硬件环境"></a>3.1. 硬件环境</h4><p>我们使用VM虚拟机来安装一个master节点两个node节点。<br>虚拟机安装CentOS Linux7.6 配置如下：<br>内存：1G  （测试1G没问题）<br>CPU：2个 （必须大于等于2）<br>磁盘：20G</p>
@@ -537,8 +543,6 @@
 <p>执行命令后再次验证节点和pod状态</p>
 <p>以上完整安装kubernetes 13.3.4 整个过程</p>
 
-          
-        
       
     </div>
 
@@ -559,338 +563,38 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://28code.com/2018/10/22/Windows Install ActiveMQ/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="28code">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="28code">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/10/22/Windows Install ActiveMQ/" class="post-title-link" itemprop="http://28code.com/index.html">Windows Install ActiveMQ</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-10-22 11:28:00" itemprop="dateCreated datePublished" datetime="2018-10-22T11:28:00+08:00">2018-10-22</time>
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/计算机/" itemprop="url" rel="index"><span itemprop="name">计算机</span></a></span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/docker/" rel="tag"># docker</a>
           
-
+            <a href="/tags/kubernetes/" rel="tag"># kubernetes</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <h5 id="1-下载地址"><a href="#1-下载地址" class="headerlink" title="1.下载地址"></a>1.下载地址</h5><p><strong><a href="http://activemq.apache.org/download.html" title="ActiveMQ下载地址" target="_blank" rel="noopener">ActiveMQ下载地址</a></strong></p>
-<h5 id="2-解压安装"><a href="#2-解压安装" class="headerlink" title="2.解压安装"></a>2.解压安装</h5><p>使用解压工具对压缩包进行解压<br><img src="/images/post/activeMQ.JPG" alt></p>
-<h5 id="3-单节点启动"><a href="#3-单节点启动" class="headerlink" title="3.单节点启动"></a>3.单节点启动</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\bin\win64\activemq.bat</span><br></pre></td></tr></table></figure>
-<p>访问<a href="http://localhost:8161/admin" target="_blank" rel="noopener">http://localhost:8161/admin</a><br>用户名:admin<br>密码:admin</p>
-<h5 id="4-集群启动"><a href="#4-集群启动" class="headerlink" title="4.集群启动"></a>4.集群启动</h5><ul>
-<li>zookeeper集群启动 (<strong><a href="http://zhangzhixing.win/2018/10/17/Windows%20Install%20ZooKeeper/" title="Windows Install ZooKeeper" target="_blank" rel="noopener">Windows Install ZooKeeper</a></strong>)</li>
-<li>activemq.xml配置  (本文配置三台机器)
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2018/10/22/Windows Install ActiveMQ/#more" rel="contents">
-                阅读全文 &raquo;
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/22/Windows Install ActiveMQ/" rel="next" title="Windows Install ActiveMQ">
+                <i class="fa fa-chevron-left"></i> Windows Install ActiveMQ
               </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </li></ul></div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://28code.com/2018/10/15/kubernetes_lb_ha/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="28code">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="28code">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/10/15/kubernetes_lb_ha/" class="post-title-link" itemprop="http://28code.com/index.html">5分钟带你体验kubernetes LB负载均衡集群和HA高可用性集群</a>
-              
             
-          </h1>
-        
+          </div>
 
-        <div class="post-meta">
-          <span class="post-time">
+          <span class="post-nav-divider"></span>
 
+          <div class="post-nav-prev post-nav-item">
             
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-10-15 11:20:20" itemprop="dateCreated datePublished" datetime="2018-10-15T11:20:20+08:00">2018-10-15</time>
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>5分钟带你体验kubernetes LB(Load Balancing)负载均衡集群、HA(High Availability)高可用性集群</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -900,14 +604,15 @@
   </article>
 
 
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -928,8 +633,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1051,6 +765,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-概述"><span class="nav-number">1.</span> <span class="nav-text">1.概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-kubeadm简介"><span class="nav-number">2.</span> <span class="nav-text">2.kubeadm简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-操作系统准备"><span class="nav-number">3.</span> <span class="nav-text">3.操作系统准备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-硬件环境"><span class="nav-number">3.1.</span> <span class="nav-text">3.1. 硬件环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-系统环境"><span class="nav-number">3.2.</span> <span class="nav-text">3.2. 系统环境</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-安装步骤"><span class="nav-number">4.</span> <span class="nav-text">4.安装步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-网络同步时间确保集群内时钟同步"><span class="nav-number">4.1.</span> <span class="nav-text">4.1. 网络同步时间确保集群内时钟同步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-主机名称解析"><span class="nav-number">4.2.</span> <span class="nav-text">4.2. 主机名称解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-关闭iptables"><span class="nav-number">4.3.</span> <span class="nav-text">4.3. 关闭iptables</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-关闭防火墙："><span class="nav-number">4.4.</span> <span class="nav-text">4.4. 关闭防火墙：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-关闭selinux"><span class="nav-number">4.5.</span> <span class="nav-text">4.5. 关闭selinux</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-6-关闭-swap-也可以不关闭，需要在后续改配置文件"><span class="nav-number">4.6.</span> <span class="nav-text">4.6. 关闭 swap(也可以不关闭，需要在后续改配置文件)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-7-检查net-bridge设置"><span class="nav-number">4.7.</span> <span class="nav-text">4.7. 检查net.bridge设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-8-yum仓库准备"><span class="nav-number">4.8.</span> <span class="nav-text">4.8. yum仓库准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-8-安装Docker"><span class="nav-number">4.9.</span> <span class="nav-text">4.8. 安装Docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-9-安装kubeadm和kubelet和kubectl"><span class="nav-number">4.10.</span> <span class="nav-text">4.9. 安装kubeadm和kubelet和kubectl</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-10-没有关闭swap需要修改参数"><span class="nav-number">4.11.</span> <span class="nav-text">4.10. 没有关闭swap需要修改参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-11-安装网络插件（flannel或calico）"><span class="nav-number">4.12.</span> <span class="nav-text">4.11. 安装网络插件（flannel或calico）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-镜像准备"><span class="nav-number">5.</span> <span class="nav-text">5.镜像准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-kubernetes-master初始化"><span class="nav-number">6.</span> <span class="nav-text">6. kubernetes master初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-kubernetes-node01加入集群"><span class="nav-number">7.</span> <span class="nav-text">7. kubernetes node01加入集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-kubernetes-node02加入集群"><span class="nav-number">8.</span> <span class="nav-text">8. kubernetes node02加入集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-验证集群状态"><span class="nav-number">9.</span> <span class="nav-text">9. 验证集群状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-错误排查"><span class="nav-number">10.</span> <span class="nav-text">9. 错误排查</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1194,6 +924,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
 
   
 
@@ -1555,14 +1289,6 @@
   
 
   
-  
-    
-      
-    
-      
-    
-      
-    
   
 
   
