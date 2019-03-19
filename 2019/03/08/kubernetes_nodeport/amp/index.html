@@ -2,13 +2,13 @@
 <html ⚡>
   <head>
     <meta charset="utf-8">
-    <link rel="canonical" href="http://28code.com/2019/03/07/kubernetes_nodeport/" >
+    <link rel="canonical" href="http://28code.com/2019/03/08/kubernetes_nodeport/" >
     <title>5分钟带你体验kubernetes 对外提供访问 - 28code</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     
     <meta property="og:title" content="5分钟带你体验kubernetes 对外提供访问">
 	<meta property="og:type" content="article">
-	<meta property="og:url" content="http://28code.com/2019/03/07/kubernetes_nodeport/">
+	<meta property="og:url" content="http://28code.com/2019/03/08/kubernetes_nodeport/">
 	
 		<meta property="og:image" content="http://28code.com/images/post/20190307_01.jpg">
 	
@@ -16,7 +16,7 @@
 	
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content="28code">
-	<meta name="twitter:url" content="http://28code.com/2019/03/07/kubernetes_nodeport/">
+	<meta name="twitter:url" content="http://28code.com/2019/03/08/kubernetes_nodeport/">
 	<meta name="twitter:title" content="5分钟带你体验kubernetes 对外提供访问 - 28code">
 	
     
@@ -50,10 +50,10 @@
 			
 			"mainEntityOfPage":{
 			    "@type":"WebPage",
-			    "@id":"http://28code.com/2019/03/07/kubernetes_nodeport/"
+			    "@id":"http://28code.com/2019/03/08/kubernetes_nodeport/"
 			},
-			"datePublished": "2019-03-07T03:20:20.000Z",
-			"dateModified": "2019-03-07T03:20:20.000Z",
+			"datePublished": "2019-03-08T03:20:20.000Z",
+			"dateModified": "2019-03-08T03:20:20.000Z",
 			
 			"image": {
 				"@type": "ImageObject",
@@ -1816,7 +1816,7 @@ h6.categories {
 			            <div class="header-cap flx">
 							
 							  <h1 class="article-title entry-title" itemprop="name">
-							    <a href="http://28code.com/2019/03/07/kubernetes_nodeport/" target="_blank" itemprop="url">5分钟带你体验kubernetes 对外提供访问</a>
+							    <a href="http://28code.com/2019/03/08/kubernetes_nodeport/" target="_blank" itemprop="url">5分钟带你体验kubernetes 对外提供访问</a>
 							  </h1>
 							
 						</div>
@@ -1826,7 +1826,7 @@ h6.categories {
 					<div class="entry-meta-header">
 						<span class="meta-elements date">
 							<span class="fa fa-fw fa-clock-o"></span>
-							<time datetime="2019-03-07" itemprop="datePublished">2019.03.07</time>
+							<time datetime="2019-03-08" itemprop="datePublished">2019.03.08</time>
 						</span>
 					</div>
 				</div>
@@ -1846,7 +1846,7 @@ h6.categories {
 			  		<p>&#x4F5C;&#x8005;&#x58F0;&#x660E;&#xFF1A;&#x672C;&#x7BC7;&#x6587;&#x7AE0;&#x7CFB;&#x672C;&#x4EBA;&#x4F9D;&#x7167;&#x771F;&#x5B9E;&#x90E8;&#x7F72;&#x8FC7;&#x7A0B;&#x539F;&#x521B;&#xFF0C;&#x672A;&#x7ECF;&#x8BB8;&#x53EF;&#xFF0C;&#x8C22;&#x7EDD;&#x8F6C;&#x8F7D;&#x3002;</p>
 <p>&#x4E0A;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#x4ECB;&#x7ECD;&#x4E86;kubernetes kubernetes RollingUpdate&#x6EDA;&#x52A8;&#x5347;&#x7EA7;&#x955C;&#x50CF;&#x56DE;&#x6EDA;&#xFF0C;&#x8FD9;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#x5E26;&#x4F60;&#x6765; 5&#x5206;&#x949F;&#x5E26;&#x4F60;&#x4F53;&#x9A8C;kubernetes &#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x8BBF;&#x95EE; </p>
 <h3 id="&#x73AF;&#x5883;&#x51C6;&#x5907;"><a href="#&#x73AF;&#x5883;&#x51C6;&#x5907;" class="headerlink" title="&#x73AF;&#x5883;&#x51C6;&#x5907;"></a>&#x73AF;&#x5883;&#x51C6;&#x5907;</h3><p>&#x672C;&#x6587;&#x662F;&#x4E4B;&#x524D;&#x73AF;&#x5883;&#x7684;&#x5EF6;&#x7EED;&#x3002;</p>
-<h3 id="kubernetes-RollingUpdate-&#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x8BBF;&#x95EE;"><a href="#kubernetes-RollingUpdate-&#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x8BBF;&#x95EE;" class="headerlink" title="kubernetes RollingUpdate &#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x8BBF;&#x95EE;"></a>kubernetes RollingUpdate &#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x8BBF;&#x95EE;</h3><p>&#x5728;master&#x6211;&#x4EEC;&#x6267;&#x884C;&#x547D;&#x4EE4;&#x67E5;&#x770B;pod<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#  kubectl get pods -o wide</span><br><span class="line">NAME                     READY   STATUS    RESTARTS   AGE   IP            NODE             NOMINATED NODE   READINESS GATES</span><br><span class="line">myapp-799bbcd6b4-8nz5g   1/1     Running   0          91s   10.244.1.30   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-jms4x   1/1     Running   0          92s   10.244.1.29   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-l7q6v   1/1     Running   0          89s   10.244.2.34   node02.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="kubernetes-&#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x8BBF;&#x95EE;"><a href="#kubernetes-&#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x8BBF;&#x95EE;" class="headerlink" title="kubernetes &#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x8BBF;&#x95EE;"></a>kubernetes &#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x8BBF;&#x95EE;</h3><p>&#x5728;master&#x6211;&#x4EEC;&#x6267;&#x884C;&#x547D;&#x4EE4;&#x67E5;&#x770B;pod<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#  kubectl get pods -o wide</span><br><span class="line">NAME                     READY   STATUS    RESTARTS   AGE   IP            NODE             NOMINATED NODE   READINESS GATES</span><br><span class="line">myapp-799bbcd6b4-8nz5g   1/1     Running   0          91s   10.244.1.30   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-jms4x   1/1     Running   0          92s   10.244.1.29   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-l7q6v   1/1     Running   0          89s   10.244.2.34   node02.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br></pre></td></tr></tbody></table></figure>
 <p>&#x5728;master&#x6211;&#x4EEC;&#x6267;&#x884C;&#x547D;&#x4EE4;&#x67E5;&#x770B;service<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x67E5;&#x770B; service</span><br><span class="line"># kubectl get svc</span><br><span class="line">NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE</span><br><span class="line">kubernetes   ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP   72m</span><br><span class="line">myapp        ClusterIP   10.100.210.72   &lt;none&gt;        80/TCP    17m</span><br></pre></td></tr></tbody></table></figure>
 <p>&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x8BBF;&#x95EE;pod&#xFF0C;&#x76EE;&#x524D;&#x53EA;&#x80FD;&#x5728;&#x865A;&#x62DF;&#x673A;&#x7684;&#x8282;&#x70B9;&#x4E0A;&#x8BBF;&#x95EE;&#xFF0C;10.244.XXX.XXX&#x7684;&#x7F51;&#x5740;&#x6216;&#x8005;&#x901A;&#x8FC7;service&#x670D;&#x52A1;&#x7684;ip&#x8BBF;&#x95EE;&#xFF0C;<br>&#x5982;&#x679C;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x5728;&#x865A;&#x62DF;&#x673A;&#x4E4B;&#x5916;&#x8BBF;&#x95EE;&#x96C6;&#x7FA4;&#x5185;&#x90E8;&#x7684;&#x5730;&#x5740;&#xFF0C;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x6267;&#x884C;&#x547D;&#x4EE4;&#x4FEE;&#x6539;service&#x7684;&#x6587;&#x4EF6;</p>
 <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">master&#x4E0A;&#x6267;&#x884C;&#x547D;&#x4EE4;</span><br><span class="line"># kubectl edit svc myapp</span><br></pre></td></tr></tbody></table></figure>
@@ -1854,8 +1854,8 @@ h6.categories {
 <p>&#x627E;&#x5230;  type: ClusterIP  &#x4FEE;&#x6539;&#x4E3A; type: NodePort<br>&#x4FEE;&#x6539;&#x540E;&#x7ED3;&#x679C;</p>
 <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># Please edit the object below. Lines beginning with a &apos;#&apos; will be ignored,</span><br><span class="line"># and an empty file will abort the edit. If an error occurs while saving this file will be</span><br><span class="line"># reopened with the relevant failures.</span><br><span class="line">#</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  creationTimestamp: &quot;2019-03-18T05:53:57Z&quot;</span><br><span class="line">  labels:</span><br><span class="line">    run: myapp</span><br><span class="line">  name: myapp</span><br><span class="line">  namespace: default</span><br><span class="line">  resourceVersion: &quot;5195&quot;</span><br><span class="line">  selfLink: /api/v1/namespaces/default/services/myapp</span><br><span class="line">  uid: 38910862-4942-11e9-bbc4-000c296cc22a</span><br><span class="line">spec:</span><br><span class="line">  clusterIP: 10.100.210.72</span><br><span class="line">  ports:</span><br><span class="line">  - port: 80</span><br><span class="line">    protocol: TCP</span><br><span class="line">    targetPort: 80</span><br><span class="line">  selector:</span><br><span class="line">    run: myapp</span><br><span class="line">  sessionAffinity: None</span><br><span class="line">  type: NodePort</span><br><span class="line">status:</span><br><span class="line">  loadBalancer: {}</span><br></pre></td></tr></tbody></table></figure>
 <p>&#x4FDD;&#x5B58;&#x9000;&#x51FA;<br>&#x518D;&#x6B21;&#x67E5;&#x770B;service<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># kubectl get svc</span><br><span class="line">NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE</span><br><span class="line">kubernetes   ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP        4h14m</span><br><span class="line">myapp        NodePort    10.100.210.72   &lt;none&gt;        80:32313/TCP   3h19m</span><br></pre></td></tr></tbody></table></figure>
-<p>&#x53D1;&#x73B0;myapp service&#x7684;prot&#x53D8;&#x4E3A; 80:32313/TCP&#xFF0C;32313&#x4E3A;master&#x4E3B;&#x673A;&#x5BF9;&#x5916;&#x8BBF;&#x95EE;&#x7684;&#x7AEF;&#x53E3;&#x53F7;&#x3002;<br>master&#x7684;ip&#x4E3A; 192168.110.140&#xFF0C;&#x6B64;&#x65F6;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x5728;&#x865A;&#x62DF;&#x673A;&#x5916;&#x90E8;&#x8BBF;&#x95EE;&#x96C6;&#x7FA4;&#x5185;&#x90E8;pod&#xFF0C;&#x9700;&#x8981;&#x4F7F;&#x7528; <a href="http://192.168.110.140:32313&#x3002;" target="_blank" rel="noopener">http://192.168.110.140:32313&#x3002;</a><br>&#x5728;master&#x8282;&#x70B9;&#x4E0A;&#x6267;&#x884C;&#x547D;&#x4EE4;&#x67E5;&#x770B;&#x6548;&#x679C;<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># curl http://192.168.110.140:32313</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-l7q6v</span><br><span class="line"># curl http://192.168.110.140:32313</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-jms4x</span><br><span class="line"># curl http://192.168.110.140:32313</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-8nz5g</span><br><span class="line"># curl http://192.168.110.140:32313</span><br></pre></td></tr></tbody></table></figure>
-<p>&#x540C;&#x65F6;&#x6211;&#x5728;&#x865A;&#x62DF;&#x673A;&#x7684;&#x5916;&#x90E8;&#x673A;&#x5668;&#x4E0A;&#x8BBF;&#x95EE; <a href="http://192.168.110.140:32313" target="_blank" rel="noopener">http://192.168.110.140:32313</a> </p>
+<p>&#x53D1;&#x73B0;myapp service&#x7684;prot&#x53D8;&#x4E3A; 80:32313/TCP&#xFF0C;32313&#x4E3A;master&#x4E3B;&#x673A;&#x5BF9;&#x5916;&#x8BBF;&#x95EE;&#x7684;&#x7AEF;&#x53E3;&#x53F7;&#x3002;<br>master&#x7684;ip&#x4E3A; 192.168.110.140&#xFF0C;&#x6B64;&#x65F6;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x5728;&#x865A;&#x62DF;&#x673A;&#x5916;&#x90E8;&#x8BBF;&#x95EE;&#x96C6;&#x7FA4;&#x5185;&#x90E8;pod&#xFF0C;&#x9700;&#x8981;&#x4F7F;&#x7528; <strong> <a href="http://192.168.110.140:32313" target="_blank" rel="noopener">http://192.168.110.140:32313</a> </strong>&#x3002;<br>&#x5728;master&#x8282;&#x70B9;&#x4E0A;&#x6267;&#x884C;&#x547D;&#x4EE4;&#x67E5;&#x770B;&#x6548;&#x679C;<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># curl http://192.168.110.140:32313</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-l7q6v</span><br><span class="line"># curl http://192.168.110.140:32313</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-jms4x</span><br><span class="line"># curl http://192.168.110.140:32313</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-8nz5g</span><br><span class="line"># curl http://192.168.110.140:32313</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x540C;&#x65F6;&#x6211;&#x5728;&#x865A;&#x62DF;&#x673A;&#x7684;&#x5916;&#x90E8;&#x673A;&#x5668;&#x4E0A;&#x8BBF;&#x95EE; <strong> <a href="http://192.168.110.140:32313" target="_blank" rel="noopener">http://192.168.110.140:32313</a> </strong> </p>
 <div class="amp-img-wrapper"><amp-img src="/images/post/20190307_01.jpg" width="710" height="514" layout="responsive"></amp-img></div>
 <p>&#x4EE5;&#x4E0A;&#x662F;kubernetes &#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x8BBF;&#x95EE; &#x6574;&#x4E2A;&#x8FC7;&#x7A0B;</p>
 
@@ -1893,6 +1893,12 @@ h6.categories {
 					    		<li class="article-tag-list-item">
 					    			<a class="article-tag-list-link" href="/tags/kubernetes/">
 					    				kubernetes
+					    			</a>
+					    		</li>
+							
+					    		<li class="article-tag-list-item">
+					    			<a class="article-tag-list-link" href="/tags/k8s/">
+					    				k8s
 					    			</a>
 					    		</li>
 							

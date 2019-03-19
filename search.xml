@@ -2,14 +2,15 @@
 <search>
   <entry>
     <title><![CDATA[5分钟带你体验kubernetes 对外提供访问]]></title>
-    <url>%2F2019%2F03%2F07%2Fkubernetes_nodeport%2F</url>
-    <content type="text"><![CDATA[作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 上一篇文章介绍了kubernetes kubernetes RollingUpdate滚动升级镜像回滚，这一篇文章带你来 5分钟带你体验kubernetes 对外提供访问 环境准备本文是之前环境的延续。 kubernetes RollingUpdate 对外提供访问在master我们执行命令查看pod12345# kubectl get pods -o wideNAME READY STATUS RESTARTS AGE IP NODE NOMINATED NODE READINESS GATESmyapp-799bbcd6b4-8nz5g 1/1 Running 0 91s 10.244.1.30 node01.k8s.com &lt;none&gt; &lt;none&gt;myapp-799bbcd6b4-jms4x 1/1 Running 0 92s 10.244.1.29 node01.k8s.com &lt;none&gt; &lt;none&gt;myapp-799bbcd6b4-l7q6v 1/1 Running 0 89s 10.244.2.34 node02.k8s.com &lt;none&gt; &lt;none&gt; 在master我们执行命令查看service12345查看 service# kubectl get svcNAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGEkubernetes ClusterIP 10.96.0.1 &lt;none&gt; 443/TCP 72mmyapp ClusterIP 10.100.210.72 &lt;none&gt; 80/TCP 17m 我们想要访问pod，目前只能在虚拟机的节点上访问，10.244.XXX.XXX的网址或者通过service服务的ip访问，如果我们想要在虚拟机之外访问集群内部的地址，这个时候我们需要执行命令修改service的文件 12master上执行命令# kubectl edit svc myapp 得到如下信息123456789101112131415161718192021222324252627# Please edit the object below. Lines beginning with a &apos;#&apos; will be ignored,# and an empty file will abort the edit. If an error occurs while saving this file will be# reopened with the relevant failures.#apiVersion: v1kind: Servicemetadata: creationTimestamp: &quot;2019-03-07T05:53:57Z&quot; labels: run: myapp name: myapp namespace: default resourceVersion: &quot;5195&quot; selfLink: /api/v1/namespaces/default/services/myapp uid: 38910862-4942-11e9-bbc4-000c296cc22aspec: clusterIP: 10.100.210.72 ports: - port: 80 protocol: TCP targetPort: 80 selector: run: myapp sessionAffinity: None type: ClusterIPstatus: loadBalancer: &#123;&#125; 找到 type: ClusterIP 修改为 type: NodePort修改后结果 123456789101112131415161718192021222324252627# Please edit the object below. Lines beginning with a &apos;#&apos; will be ignored,# and an empty file will abort the edit. If an error occurs while saving this file will be# reopened with the relevant failures.#apiVersion: v1kind: Servicemetadata: creationTimestamp: &quot;2019-03-18T05:53:57Z&quot; labels: run: myapp name: myapp namespace: default resourceVersion: &quot;5195&quot; selfLink: /api/v1/namespaces/default/services/myapp uid: 38910862-4942-11e9-bbc4-000c296cc22aspec: clusterIP: 10.100.210.72 ports: - port: 80 protocol: TCP targetPort: 80 selector: run: myapp sessionAffinity: None type: NodePortstatus: loadBalancer: &#123;&#125; 保存退出再次查看service1234# kubectl get svcNAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGEkubernetes ClusterIP 10.96.0.1 &lt;none&gt; 443/TCP 4h14mmyapp NodePort 10.100.210.72 &lt;none&gt; 80:32313/TCP 3h19m 发现myapp service的prot变为 80:32313/TCP，32313为master主机对外访问的端口号。master的ip为 192168.110.140，此时我们想要在虚拟机外部访问集群内部pod，需要使用 http://192.168.110.140:32313。在master节点上执行命令查看效果12345678910# curl http://192.168.110.140:32313V1myapp-799bbcd6b4-l7q6v# curl http://192.168.110.140:32313V1myapp-799bbcd6b4-jms4x# curl http://192.168.110.140:32313V1myapp-799bbcd6b4-8nz5g# curl http://192.168.110.140:32313 同时我在虚拟机的外部机器上访问 http://192.168.110.140:32313 以上是kubernetes 对外提供访问 整个过程]]></content>
+    <url>%2F2019%2F03%2F08%2Fkubernetes_nodeport%2F</url>
+    <content type="text"><![CDATA[作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 上一篇文章介绍了kubernetes kubernetes RollingUpdate滚动升级镜像回滚，这一篇文章带你来 5分钟带你体验kubernetes 对外提供访问 环境准备本文是之前环境的延续。 kubernetes 对外提供访问在master我们执行命令查看pod12345# kubectl get pods -o wideNAME READY STATUS RESTARTS AGE IP NODE NOMINATED NODE READINESS GATESmyapp-799bbcd6b4-8nz5g 1/1 Running 0 91s 10.244.1.30 node01.k8s.com &lt;none&gt; &lt;none&gt;myapp-799bbcd6b4-jms4x 1/1 Running 0 92s 10.244.1.29 node01.k8s.com &lt;none&gt; &lt;none&gt;myapp-799bbcd6b4-l7q6v 1/1 Running 0 89s 10.244.2.34 node02.k8s.com &lt;none&gt; &lt;none&gt; 在master我们执行命令查看service12345查看 service# kubectl get svcNAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGEkubernetes ClusterIP 10.96.0.1 &lt;none&gt; 443/TCP 72mmyapp ClusterIP 10.100.210.72 &lt;none&gt; 80/TCP 17m 我们想要访问pod，目前只能在虚拟机的节点上访问，10.244.XXX.XXX的网址或者通过service服务的ip访问，如果我们想要在虚拟机之外访问集群内部的地址，这个时候我们需要执行命令修改service的文件 12master上执行命令# kubectl edit svc myapp 得到如下信息123456789101112131415161718192021222324252627# Please edit the object below. Lines beginning with a &apos;#&apos; will be ignored,# and an empty file will abort the edit. If an error occurs while saving this file will be# reopened with the relevant failures.#apiVersion: v1kind: Servicemetadata: creationTimestamp: &quot;2019-03-07T05:53:57Z&quot; labels: run: myapp name: myapp namespace: default resourceVersion: &quot;5195&quot; selfLink: /api/v1/namespaces/default/services/myapp uid: 38910862-4942-11e9-bbc4-000c296cc22aspec: clusterIP: 10.100.210.72 ports: - port: 80 protocol: TCP targetPort: 80 selector: run: myapp sessionAffinity: None type: ClusterIPstatus: loadBalancer: &#123;&#125; 找到 type: ClusterIP 修改为 type: NodePort修改后结果 123456789101112131415161718192021222324252627# Please edit the object below. Lines beginning with a &apos;#&apos; will be ignored,# and an empty file will abort the edit. If an error occurs while saving this file will be# reopened with the relevant failures.#apiVersion: v1kind: Servicemetadata: creationTimestamp: &quot;2019-03-18T05:53:57Z&quot; labels: run: myapp name: myapp namespace: default resourceVersion: &quot;5195&quot; selfLink: /api/v1/namespaces/default/services/myapp uid: 38910862-4942-11e9-bbc4-000c296cc22aspec: clusterIP: 10.100.210.72 ports: - port: 80 protocol: TCP targetPort: 80 selector: run: myapp sessionAffinity: None type: NodePortstatus: loadBalancer: &#123;&#125; 保存退出再次查看service1234# kubectl get svcNAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGEkubernetes ClusterIP 10.96.0.1 &lt;none&gt; 443/TCP 4h14mmyapp NodePort 10.100.210.72 &lt;none&gt; 80:32313/TCP 3h19m 发现myapp service的prot变为 80:32313/TCP，32313为master主机对外访问的端口号。master的ip为 192.168.110.140，此时我们想要在虚拟机外部访问集群内部pod，需要使用 http://192.168.110.140:32313 。在master节点上执行命令查看效果12345678910# curl http://192.168.110.140:32313V1myapp-799bbcd6b4-l7q6v# curl http://192.168.110.140:32313V1myapp-799bbcd6b4-jms4x# curl http://192.168.110.140:32313V1myapp-799bbcd6b4-8nz5g# curl http://192.168.110.140:32313 同时我在虚拟机的外部机器上访问 http://192.168.110.140:32313 以上是kubernetes 对外提供访问 整个过程]]></content>
       <categories>
         <category>kubernetes</category>
       </categories>
       <tags>
         <tag>docker</tag>
         <tag>kubernetes</tag>
+        <tag>k8s</tag>
       </tags>
   </entry>
   <entry>
@@ -22,6 +23,7 @@
       <tags>
         <tag>docker</tag>
         <tag>kubernetes</tag>
+        <tag>k8s</tag>
       </tags>
   </entry>
   <entry>
@@ -34,6 +36,7 @@
       <tags>
         <tag>docker</tag>
         <tag>kubernetes</tag>
+        <tag>k8s</tag>
       </tags>
   </entry>
   <entry>
@@ -46,6 +49,7 @@
       <tags>
         <tag>docker</tag>
         <tag>kubernetes</tag>
+        <tag>k8s</tag>
       </tags>
   </entry>
   <entry>
@@ -58,6 +62,7 @@
       <tags>
         <tag>docker</tag>
         <tag>kubernetes</tag>
+        <tag>k8s</tag>
       </tags>
   </entry>
   <entry>
@@ -70,6 +75,7 @@
       <tags>
         <tag>docker</tag>
         <tag>kubernetes</tag>
+        <tag>k8s</tag>
       </tags>
   </entry>
   <entry>
@@ -82,6 +88,7 @@
       <tags>
         <tag>docker</tag>
         <tag>kubernetes</tag>
+        <tag>k8s</tag>
       </tags>
   </entry>
   <entry>
@@ -94,6 +101,7 @@
       <tags>
         <tag>docker</tag>
         <tag>kubernetes</tag>
+        <tag>k8s</tag>
       </tags>
   </entry>
 </search>
