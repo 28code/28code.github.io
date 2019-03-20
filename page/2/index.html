@@ -641,8 +641,7 @@
           <p>作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。</p>
 <h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h3><p>今天我们要搭建一个kubernetes环境，主要使用kubeadm工具来搭建。</p>
 <h3 id="2-kubeadm简介"><a href="#2-kubeadm简介" class="headerlink" title="2.kubeadm简介"></a>2.kubeadm简介</h3><p>kubeadm是Kubernetes官方提供的用于快速安装Kubernetes集群的工具。<br><strong><a href="https://github.com/kubernetes/kubernetes/releases" title="Kubernetes发布的版本" target="_blank" rel="noopener">点击查看Kubernetes发布的版本</a></strong></p>
-<h3 id="3-操作系统准备"><a href="#3-操作系统准备" class="headerlink" title="3.操作系统准备"></a>3.操作系统准备</h3><h4 id="3-1-硬件环境"><a href="#3-1-硬件环境" class="headerlink" title="3.1. 硬件环境"></a>3.1. 硬件环境</h4><p>我们使用VM虚拟机来安装一个master节点两个node节点。<br>虚拟机安装CentOS Linux7.6 配置如下：<br>内存：1G  （测试1G没问题）<br>CPU：2个 （必须大于等于2）<br>磁盘：20G</p>
-<h4 id="3-2-系统环境"><a href="#3-2-系统环境" class="headerlink" title="3.2. 系统环境"></a>3.2. 系统环境</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># cat /etc/redhat-release</span><br><span class="line">Red Hat Enterprise Linux Server release 7.6 (Maipo)</span><br><span class="line"># uname -r</span><br><span class="line">3.10.0-957.el7.x86_64 （内核必须是3.10及以上）</span><br></pre></td></tr></table></figure>
+<h3 id="3-操作系统准备"><a href="#3-操作系统准备" class="headerlink" title="3.操作系统准备"></a>3.操作系统准备</h3><h4 id="3-1-硬件环境"><a href="#3-1-硬件环境" class="headerlink" title="3.1. 硬件环境"></a>3.1. 硬件环境</h4><p>我们使用VM虚拟机来安装一个master节点两个node节点。<br>虚拟机安装CentOS Linux7.6 配置如下：<br>内存：1G  （测试1G没问题）<br>CPU：2个 （必须大于等于2）<br>磁盘：20G<br>
           <!--noindex-->
           
             <div class="post-button text-center">
@@ -654,7 +653,7 @@
           <!--/noindex-->
         
       
-    </div>
+    </p></div>
 
     
 
@@ -842,7 +841,6 @@
 </tr>
 </tbody>
 </table>
-<p>需要在三台虚拟机上分别安装oracle11g软件，只安装软件，不用建立数据库。我们可以先在一台虚拟机上安装好oracle11g，然后复制出来两份虚拟机，然后修改相关参数变成一台新的数据库服务器。<br>关于oracle11g数据库安装由于篇幅原因本文略过，本文主要是关于DataGuard配置。<br>
           <!--noindex-->
           
             <div class="post-button text-center">
@@ -854,7 +852,7 @@
           <!--/noindex-->
         
       
-    </p></div>
+    </div>
 
     
 
@@ -1035,7 +1033,6 @@
 </tr>
 </tbody>
 </table>
-<p>需要在两台虚拟机上分别安装oracle11g软件，只安装软件，不用建立数据库。我们可以先在一台虚拟机上安装好oracle11g，然后复制出来一份虚拟机，然后修改相关参数变成一台新的数据库服务器。<br>关于oracle11g数据库安装由于篇幅原因本文略过，本文主要是关于DataGuard配置。<br>
           <!--noindex-->
           
             <div class="post-button text-center">
@@ -1047,7 +1044,7 @@
           <!--/noindex-->
         
       
-    </p></div>
+    </div>
 
     
 
