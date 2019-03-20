@@ -380,7 +380,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="28code">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="道生一，一生二，二生三，三生万物">
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
@@ -482,6 +482,7 @@
 <h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>本文中我用到了docker的的镜像文件 28code/httpd:v1.0 ，系作者基于docker的busybox镜像做的一个docker image，主要功能是提供httpd服务并显示版本和pod信息。 启动28code/httpd:v1.0镜像时候会生成文件位于 /var/www/index.html，index.html记录了版本号V1和启动pod时候的pod名称，用来提供展示版本变更和访问时候显示访问的哪个pod的显示效果。</p>
 <h3 id="kubernetes-HA-High-Available-高可用集群"><a href="#kubernetes-HA-High-Available-高可用集群" class="headerlink" title="kubernetes HA(High Available)高可用集群"></a>kubernetes HA(High Available)高可用集群</h3><p>上次在master执行命令，部署docker镜像文件28code/httpd:v1.0，，镜像提供httpd服务，为3个服务</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">查看目前集群pod运行情况</span><br><span class="line"># kubectl get pods -o wide</span><br><span class="line">NAME                     READY   STATUS    RESTARTS   AGE    IP            NODE             NOMINATED NODE   READINESS GATES</span><br><span class="line">myapp-799bbcd6b4-6697m   1/1     Running   0          18m    10.244.1.25   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-6tqkk   1/1     Running   0          113m   10.244.2.30   node02.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-p4dxz   1/1     Running   0          113m   10.244.1.24   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br></pre></td></tr></table></figure>
+<a id="more"></a> 
 <p>可以看到3个pod有2个pod运行在node01节点上有1个pod运行在node02节点上。<br>此时我们让node02断电，看看会发生什么。<br>在node02节点上我们执行命令，让 node02 关机<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node02 ~]# init 0</span><br></pre></td></tr></table></figure></p>
 <p>在master上检查node的情况，发现node02状态已经发生变化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># kubectl get nodes</span><br><span class="line">NAME             STATUS     ROLES    AGE    VERSION</span><br><span class="line">master.k8s.com   Ready      master   3h3m   v1.13.4</span><br><span class="line">node01.k8s.com   Ready      &lt;none&gt;   176m   v1.13.4</span><br><span class="line">node02.k8s.com   NotReady   &lt;none&gt;   174m   v1.13.4</span><br></pre></td></tr></table></figure></p>
 <p>在master上检查pod的情况（需要等待一段时间），发现运行在node02节点上pod已经被结束，运行的总pod还是3个，都运行在了node01上。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#  kubectl get pods -o wide</span><br><span class="line">NAME                     READY   STATUS        RESTARTS   AGE    IP            NODE             NOMINATED NODE   READINESS GATES</span><br><span class="line">myapp-799bbcd6b4-6697m   1/1     Running       0          40m    10.244.1.25   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-6tqkk   1/1     Terminating   0          135m   10.244.2.30   node02.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-9cq9p   1/1     Running       0          9s     10.244.1.27   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-p4dxz   1/1     Running       0          135m   10.244.1.24   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br></pre></td></tr></table></figure></p>
@@ -606,7 +607,7 @@
               <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="28code">
             
               <p class="site-author-name" itemprop="name">28code</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">道生一，一生二，二生三，三生万物</p>
           </div>
 
           

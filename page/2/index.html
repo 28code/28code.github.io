@@ -109,18 +109,16 @@
 
 
 
-  <meta name="description" content="作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 上一篇文章介绍了kubernetes 13.3.4 安装过程，这一篇文件带你来5分钟带你体验kubernetes LB(Load Balancing)负载均衡集群 环境准备本文中我用到了docker的的镜像文件 28code/httpd:v1.0 ，系作者基于docker的busybox镜像做的一个docker image，主要功">
-<meta name="keywords" content="docker,kubernetes,k8s">
-<meta property="og:type" content="article">
-<meta property="og:title" content="5分钟带你体验kubernetes LB(Load Balancing)负载均衡集群">
-<meta property="og:url" content="http://28code.com/2019/03/02/kubernetes_lb/index.html">
+  <meta name="description" content="道生一，一生二，二生三，三生万物">
+<meta property="og:type" content="website">
+<meta property="og:title" content="28code">
+<meta property="og:url" content="http://28code.com/page/2/index.html">
 <meta property="og:site_name" content="28code">
-<meta property="og:description" content="作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 上一篇文章介绍了kubernetes 13.3.4 安装过程，这一篇文件带你来5分钟带你体验kubernetes LB(Load Balancing)负载均衡集群 环境准备本文中我用到了docker的的镜像文件 28code/httpd:v1.0 ，系作者基于docker的busybox镜像做的一个docker image，主要功">
+<meta property="og:description" content="道生一，一生二，二生三，三生万物">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-02T03:20:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="5分钟带你体验kubernetes LB(Load Balancing)负载均衡集群">
-<meta name="twitter:description" content="作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 上一篇文章介绍了kubernetes 13.3.4 安装过程，这一篇文件带你来5分钟带你体验kubernetes LB(Load Balancing)负载均衡集群 环境准备本文中我用到了docker的的镜像文件 28code/httpd:v1.0 ，系作者基于docker的busybox镜像做的一个docker image，主要功">
+<meta name="twitter:title" content="28code">
+<meta name="twitter:description" content="道生一，一生二，二生三，三生万物">
 
 
 
@@ -129,7 +127,7 @@
 
 
 
-  <link rel="canonical" href="http://28code.com/2019/03/02/kubernetes_lb/">
+  <link rel="canonical" href="http://28code.com/page/2/">
 
 
 
@@ -139,7 +137,7 @@
   };
 </script>
 
-  <title>5分钟带你体验kubernetes LB(Load Balancing)负载均衡集群 | 28code</title>
+  <title>28code</title>
   
 
 
@@ -189,7 +187,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
 
@@ -359,9 +358,9 @@
           
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -393,7 +392,10 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">5分钟带你体验kubernetes LB(Load Balancing)负载均衡集群
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/02/kubernetes_lb/" class="post-title-link" itemprop="http://28code.com/page/2/index.html">5分钟带你体验kubernetes LB(Load Balancing)负载均衡集群</a>
               
             
           </h1>
@@ -452,13 +454,6 @@
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="post-meta-item-icon">
-            <i class="fa fa-eye"></i>
-             阅读次数： 
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
-            </span>
-          
 
           
 
@@ -477,20 +472,21 @@
       
 
       
-        <p>作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。</p>
+        
+          <p>作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。</p>
 <p>上一篇文章介绍了kubernetes 13.3.4 安装过程，这一篇文件带你来5分钟带你体验kubernetes LB(Load Balancing)负载均衡集群</p>
 <h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>本文中我用到了docker的的镜像文件 28code/httpd:v1.0 ，系作者基于docker的busybox镜像做的一个docker image，主要功能是提供httpd服务并显示版本和pod信息。 启动28code/httpd:v1.0镜像时候会生成文件位于 /var/www/index.html，index.html记录了版本号V1和启动pod时候的pod名称，用来提供展示版本变更和访问时候显示访问的哪个pod的显示效果。</p>
 <h3 id="kubernetes-LB负载均衡集群实验"><a href="#kubernetes-LB负载均衡集群实验" class="headerlink" title="kubernetes LB负载均衡集群实验"></a>kubernetes LB负载均衡集群实验</h3><p>在master执行命令，部署docker镜像文件28code/httpd:v1.0，，镜像提供httpd服务，部署为2个服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># kubectl run myapp --image=28code/httpd:v1.0 --replicas=2</span><br></pre></td></tr></table></figure></p>
-<a id="more"></a>  
-<p>在master节点执行命令，查看pod的运行情况<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># kubectl get pods -o wide</span><br><span class="line">NAME                     READY   STATUS    RESTARTS   AGE   IP            NODE             NOMINATED NODE   READINESS GATES</span><br><span class="line">myapp-799bbcd6b4-6tqkk   1/1     Running   0          22s   10.244.2.30   node02.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-p4dxz   1/1     Running   0          22s   10.244.1.24   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line"></span><br><span class="line">在master节点执行命令，查看deployment</span><br><span class="line"># kubectl get deployment</span><br><span class="line">NAME    READY   UP-TO-DATE   AVAILABLE   AGE</span><br><span class="line">myapp   2/2     2            2           5m57s</span><br></pre></td></tr></table></figure></p>
-<p>可以看到httpd服务启动了两个分别运行在node01节点上和node02节点上，</p>
-<p>在master节点分别访问两个pod节点查看httpd服务信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># curl 10.244.2.30</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-6tqkk</span><br><span class="line"># curl 10.244.1.24</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-p4dxz</span><br></pre></td></tr></table></figure></p>
-<p>可以看到两个pod节点正常访问（V1代表版本信息，myapp-XXXXXX 是代表pods名称），显示了版本号和pod名称。</p>
-<p>此时我们来测试kubernetes LB功能<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">在master节点执行命令，创建service实现LB访问httpd服务</span><br><span class="line"># kubectl  expose deployment myapp --name=myapp --port=80</span><br><span class="line">查看 service</span><br><span class="line"># kubectl get svc</span><br><span class="line">NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE</span><br><span class="line">kubernetes   ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP   72m</span><br><span class="line">myapp        ClusterIP   10.100.210.72   &lt;none&gt;        80/TCP    17m</span><br></pre></td></tr></table></figure></p>
-<p>在master节点执行命令展示LB的效果，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# curl 10.100.210.72</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-p4dxz</span><br><span class="line">[root@master ~]# curl 10.100.210.72</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-6tqkk</span><br><span class="line">[root@master ~]# curl 10.100.210.72</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-p4dxz</span><br><span class="line">[root@master ~]# curl 10.100.210.72</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-6tqkk</span><br><span class="line">[root@master ~]# curl 10.100.210.72</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-p4dxz</span><br></pre></td></tr></table></figure></p>
-<p>可以看到访问服务地址10.100.210.72后，分别均匀的访问到2个pod上的httpd服务</p>
-<p>以上是体验kubernetes LB(Load Balancing)负载均衡集群整个过程</p>
-
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/02/kubernetes_lb/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
       
     </div>
 
@@ -511,44 +507,14 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/docker/" rel="tag"># docker</a>
-          
-            <a href="/tags/kubernetes/" rel="tag"># kubernetes</a>
-          
-            <a href="/tags/k8s/" rel="tag"># k8s</a>
-          
-        </div>
+
+      
+
       
 
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/03/01/kubernetes_install/" rel="next" title="kubernetes 1.13.4 安装过程">
-                <i class="fa fa-chevron-left"></i> kubernetes 1.13.4 安装过程
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/03/kubernetes_rc/" rel="prev" title="5分钟带你体验kubernetes集群扩展功能">
-                5分钟带你体验kubernetes集群扩展功能 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -558,15 +524,577 @@
   </article>
 
 
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://28code.com/2019/03/01/kubernetes_install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="28code">
+      <meta itemprop="description" content="道生一，一生二，二生三，三生万物">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="28code">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/01/kubernetes_install/" class="post-title-link" itemprop="http://28code.com/page/2/index.html">kubernetes 1.13.4 安装过程</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-01 11:20:20" itemprop="dateCreated datePublished" datetime="2019-03-01T11:20:20+08:00">2019-03-01</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。</p>
+<h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h3><p>今天我们要搭建一个kubernetes环境，主要使用kubeadm工具来搭建。</p>
+<h3 id="2-kubeadm简介"><a href="#2-kubeadm简介" class="headerlink" title="2.kubeadm简介"></a>2.kubeadm简介</h3><p>kubeadm是Kubernetes官方提供的用于快速安装Kubernetes集群的工具。<br><strong><a href="https://github.com/kubernetes/kubernetes/releases" title="Kubernetes发布的版本" target="_blank" rel="noopener">点击查看Kubernetes发布的版本</a></strong></p>
+<h3 id="3-操作系统准备"><a href="#3-操作系统准备" class="headerlink" title="3.操作系统准备"></a>3.操作系统准备</h3><h4 id="3-1-硬件环境"><a href="#3-1-硬件环境" class="headerlink" title="3.1. 硬件环境"></a>3.1. 硬件环境</h4><p>我们使用VM虚拟机来安装一个master节点两个node节点。<br>虚拟机安装CentOS Linux7.6 配置如下：<br>内存：1G  （测试1G没问题）<br>CPU：2个 （必须大于等于2）<br>磁盘：20G</p>
+<h4 id="3-2-系统环境"><a href="#3-2-系统环境" class="headerlink" title="3.2. 系统环境"></a>3.2. 系统环境</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># cat /etc/redhat-release</span><br><span class="line">Red Hat Enterprise Linux Server release 7.6 (Maipo)</span><br><span class="line"># uname -r</span><br><span class="line">3.10.0-957.el7.x86_64 （内核必须是3.10及以上）</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/01/kubernetes_install/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
   </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://28code.com/2018/10/09/oracle_dataguard2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="28code">
+      <meta itemprop="description" content="道生一，一生二，二生三，三生万物">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="28code">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/10/09/oracle_dataguard2/" class="post-title-link" itemprop="http://28code.com/page/2/index.html">Oracle11g DataGuard配置（一主二备）</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-09 11:20:20" itemprop="dateCreated datePublished" datetime="2018-10-09T11:20:20+08:00">2018-10-09</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Oracle/" itemprop="url" rel="index"><span itemprop="name">Oracle</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。</p>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>硬件环境：<br>我们使用VM虚拟机来安装两个Linux虚拟机。<br>虚拟机安装Oracle Linux 5.6 配置如下：<br>内存：2G<br>CPU：1个<br>磁盘：20G</p>
+<p>操作系统：<br>Red Hat Enterprise Linux Server release 5.6 (Tikanga)</p>
+<p>oracle数据库：<br>oracle 11.0.2.4</p>
+<table>
+<thead>
+<tr>
+<th>主机名</th>
+<th>ip地址</th>
+<th>db_name</th>
+<th>db_unique_name</th>
+<th>service_name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>master(主库)</td>
+<td>192.168.110.66</td>
+<td>orcl</td>
+<td>mdb</td>
+<td>orcl</td>
+</tr>
+<tr>
+<td>node01(备库)</td>
+<td>192.168.110.88</td>
+<td>orcl</td>
+<td>dg01</td>
+<td>orcl</td>
+</tr>
+<tr>
+<td>node02(备库)</td>
+<td>192.168.110.99</td>
+<td>orcl</td>
+<td>dg02</td>
+<td>orcl</td>
+</tr>
+</tbody>
+</table>
+<p>需要在三台虚拟机上分别安装oracle11g软件，只安装软件，不用建立数据库。我们可以先在一台虚拟机上安装好oracle11g，然后复制出来两份虚拟机，然后修改相关参数变成一台新的数据库服务器。<br>关于oracle11g数据库安装由于篇幅原因本文略过，本文主要是关于DataGuard配置。<br>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/10/09/oracle_dataguard2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </p></div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://28code.com/2018/10/08/oracle_dataguard/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="28code">
+      <meta itemprop="description" content="道生一，一生二，二生三，三生万物">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="28code">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/10/08/oracle_dataguard/" class="post-title-link" itemprop="http://28code.com/page/2/index.html">Oracle11g DataGuard配置（一主一备）</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-08 11:20:20" itemprop="dateCreated datePublished" datetime="2018-10-08T11:20:20+08:00">2018-10-08</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Oracle/" itemprop="url" rel="index"><span itemprop="name">Oracle</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。</p>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>硬件环境：<br>我们使用VM虚拟机来安装两个Linux虚拟机。<br>虚拟机安装Oracle Linux 5.6 配置如下：<br>内存：2G<br>CPU：1个<br>磁盘：20G</p>
+<p>操作系统：<br>Red Hat Enterprise Linux Server release 5.6 (Tikanga)</p>
+<p>oracle数据库：<br>oracle 11.0.2.4</p>
+<table>
+<thead>
+<tr>
+<th>主机名</th>
+<th>ip地址</th>
+<th>db_name</th>
+<th>db_unique_name</th>
+<th>service_name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dg1(主库)</td>
+<td>192.168.110.66</td>
+<td>orcl</td>
+<td>dgs</td>
+<td>orcl</td>
+</tr>
+<tr>
+<td>dg2(备库)</td>
+<td>192.168.110.88</td>
+<td>orcl</td>
+<td>dgt</td>
+<td>orcl</td>
+</tr>
+</tbody>
+</table>
+<p>需要在两台虚拟机上分别安装oracle11g软件，只安装软件，不用建立数据库。我们可以先在一台虚拟机上安装好oracle11g，然后复制出来一份虚拟机，然后修改相关参数变成一台新的数据库服务器。<br>关于oracle11g数据库安装由于篇幅原因本文略过，本文主要是关于DataGuard配置。<br>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/10/08/oracle_dataguard/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </p></div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
           
-
-  
-
-
 
         </div>
         
@@ -587,17 +1115,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -725,22 +1244,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kubernetes-LB负载均衡集群实验"><span class="nav-number">2.</span> <span class="nav-text">kubernetes LB负载均衡集群实验</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -884,10 +1387,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
-
-
 
   
 
@@ -1249,6 +1748,16 @@
   
 
   
+  
+    
+      
+    
+      
+    
+      
+    
+      
+    
   
 
   

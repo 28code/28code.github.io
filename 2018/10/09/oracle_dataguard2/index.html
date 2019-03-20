@@ -380,7 +380,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="28code">
-      <meta itemprop="description" content>
+      <meta itemprop="description" content="道生一，一生二，二生三，三生万物">
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
@@ -515,7 +515,7 @@
 </tr>
 </tbody>
 </table>
-<p>需要在三台虚拟机上分别安装oracle11g软件，只安装软件，不用建立数据库。我们可以先在一台虚拟机上安装好oracle11g，然后复制出来两份虚拟机，然后修改相关参数变成一台新的数据库服务器。<br>关于oracle11g数据库安装由于篇幅原因本文略过，本文主要是关于DataGuard配置。</p>
+<p>需要在三台虚拟机上分别安装oracle11g软件，只安装软件，不用建立数据库。我们可以先在一台虚拟机上安装好oracle11g，然后复制出来两份虚拟机，然后修改相关参数变成一台新的数据库服务器。<br>关于oracle11g数据库安装由于篇幅原因本文略过，本文主要是关于DataGuard配置。<br><a id="more"></a> </p>
 <h3 id="master机器上编辑环境变量"><a href="#master机器上编辑环境变量" class="headerlink" title="master机器上编辑环境变量"></a>master机器上编辑环境变量</h3><p>oracle用户登录，在oracle用户home目录下编辑环境变量（可根据实际路径填写）<br>vi .bash_profile<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">export ORACLE_BASE=/u01/app/oracle</span><br><span class="line">export ORACLE_HOME=$ORACLE_BASE/product/11.2.0.4/db_1</span><br><span class="line">export ORACLE_SID=orcl</span><br><span class="line">export ORACLE_UNQNAME=mdb</span><br><span class="line">PATH=$ORACLE_HOME/bin:$PATH:$HOME/bin</span><br><span class="line">LD_LIBARY_PATH=$ORACLE_HOME/lib:$LD_LIBARY_PATH</span><br><span class="line">DISPLAY=192.168.110.1:0.0</span><br><span class="line">export LANG=C</span><br><span class="line">export ORACLE_BASE ORACLE_HOME ORACLE_SID PATH LD_LIBARY_PATH DISPLAY</span><br><span class="line">umask 022</span><br></pre></td></tr></table></figure></p>
 <h3 id="node01机器上编辑环境变量"><a href="#node01机器上编辑环境变量" class="headerlink" title="node01机器上编辑环境变量"></a>node01机器上编辑环境变量</h3><p>oracle用户登录，在oracle用户home目录下编辑环境变量（可根据实际路径填写）<br>vi .bash_profile<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">export ORACLE_BASE=/u01/app/oracle</span><br><span class="line">export ORACLE_HOME=$ORACLE_BASE/product/11.2.0.4/db_1</span><br><span class="line">export ORACLE_SID=orcl</span><br><span class="line">export ORACLE_UNQNAME=dg01</span><br><span class="line">PATH=$ORACLE_HOME/bin:$PATH:$HOME/bin</span><br><span class="line">LD_LIBARY_PATH=$ORACLE_HOME/lib:$LD_LIBARY_PATH</span><br><span class="line">DISPLAY=192.168.110.1:0.0</span><br><span class="line">export LANG=C</span><br><span class="line">export ORACLE_BASE ORACLE_HOME ORACLE_SID PATH LD_LIBARY_PATH DISPLAY</span><br><span class="line">umask 022</span><br></pre></td></tr></table></figure></p>
 <h3 id="node02机器上编辑环境变量"><a href="#node02机器上编辑环境变量" class="headerlink" title="node02机器上编辑环境变量"></a>node02机器上编辑环境变量</h3><p>oracle用户登录，在oracle用户home目录下编辑环境变量（可根据实际路径填写）<br>vi .bash_profile<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">export ORACLE_BASE=/u01/app/oracle</span><br><span class="line">export ORACLE_HOME=$ORACLE_BASE/product/11.2.0.4/db_1</span><br><span class="line">export ORACLE_SID=orcl</span><br><span class="line">export ORACLE_UNQNAME=dg02</span><br><span class="line">PATH=$ORACLE_HOME/bin:$PATH:$HOME/bin</span><br><span class="line">LD_LIBARY_PATH=$ORACLE_HOME/lib:$LD_LIBARY_PATH</span><br><span class="line">DISPLAY=192.168.110.1:0.0</span><br><span class="line">export LANG=C</span><br><span class="line">export ORACLE_BASE ORACLE_HOME ORACLE_SID PATH LD_LIBARY_PATH DISPLAY</span><br><span class="line">umask 022</span><br></pre></td></tr></table></figure></p>
@@ -673,7 +673,7 @@
               <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="28code">
             
               <p class="site-author-name" itemprop="name">28code</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">道生一，一生二，二生三，三生万物</p>
           </div>
 
           
