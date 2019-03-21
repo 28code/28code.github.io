@@ -109,18 +109,26 @@
 
 
 
-  <meta name="description" content="作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 上一篇文章介绍了kubernetes集群扩展功能，这一篇文件带你来 5分钟带你体验kubernetes集群伸缩功能 环境准备本文中我用到了docker的的镜像文件 28code/httpd:v1.0 ，系作者基于docker的busybox镜像做的一个docker image，主要功能是提供httpd服务并显示版本和pod信息。">
-<meta name="keywords" content="docker,kubernetes,k8s">
+  <meta name="description" content="作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 环境准备硬件环境：我们使用VM虚拟机来安装两个Linux虚拟机。虚拟机安装Oracle Linux 5.6 配置如下：内存：2GCPU：1个磁盘：20G 操作系统：Red Hat Enterprise Linux Server release 5.6 (Tikanga) oracle数据库：oracle 11.0.2.4    主">
+<meta name="keywords" content="Oracle,Oracle11g,GoldenGate">
 <meta property="og:type" content="article">
-<meta property="og:title" content="5分钟带你体验kubernetes集群伸缩功能">
-<meta property="og:url" content="http://28code.com/2019/03/04/kubernetes_rc2/index.html">
+<meta property="og:title" content="Oracle11g GoldenGate系列一安装">
+<meta property="og:url" content="http://28code.com/2018/11/09/oracle_ogg_install/index.html">
 <meta property="og:site_name" content="28code">
-<meta property="og:description" content="作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 上一篇文章介绍了kubernetes集群扩展功能，这一篇文件带你来 5分钟带你体验kubernetes集群伸缩功能 环境准备本文中我用到了docker的的镜像文件 28code/httpd:v1.0 ，系作者基于docker的busybox镜像做的一个docker image，主要功能是提供httpd服务并显示版本和pod信息。">
+<meta property="og:description" content="作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 环境准备硬件环境：我们使用VM虚拟机来安装两个Linux虚拟机。虚拟机安装Oracle Linux 5.6 配置如下：内存：2GCPU：1个磁盘：20G 操作系统：Red Hat Enterprise Linux Server release 5.6 (Tikanga) oracle数据库：oracle 11.0.2.4    主">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-04T03:20:20.000Z">
+<meta property="og:image" content="http://28code.com/images/post/20181109_01.jpg">
+<meta property="og:image" content="http://28code.com/images/post/20181109_02.jpg">
+<meta property="og:image" content="http://28code.com/images/post/20181109_03.jpg">
+<meta property="og:image" content="http://28code.com/images/post/20181109_04.jpg">
+<meta property="og:image" content="http://28code.com/images/post/20181109_05.jpg">
+<meta property="og:image" content="http://28code.com/images/post/20181109_01.jpg">
+<meta property="og:image" content="http://28code.com/images/post/20181109_202.jpg">
+<meta property="og:updated_time" content="2018-11-09T03:20:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="5分钟带你体验kubernetes集群伸缩功能">
-<meta name="twitter:description" content="作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 上一篇文章介绍了kubernetes集群扩展功能，这一篇文件带你来 5分钟带你体验kubernetes集群伸缩功能 环境准备本文中我用到了docker的的镜像文件 28code/httpd:v1.0 ，系作者基于docker的busybox镜像做的一个docker image，主要功能是提供httpd服务并显示版本和pod信息。">
+<meta name="twitter:title" content="Oracle11g GoldenGate系列一安装">
+<meta name="twitter:description" content="作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 环境准备硬件环境：我们使用VM虚拟机来安装两个Linux虚拟机。虚拟机安装Oracle Linux 5.6 配置如下：内存：2GCPU：1个磁盘：20G 操作系统：Red Hat Enterprise Linux Server release 5.6 (Tikanga) oracle数据库：oracle 11.0.2.4    主">
+<meta name="twitter:image" content="http://28code.com/images/post/20181109_01.jpg">
 
 
 
@@ -129,7 +137,7 @@
 
 
 
-  <link rel="canonical" href="http://28code.com/2019/03/04/kubernetes_rc2/">
+  <link rel="canonical" href="http://28code.com/2018/11/09/oracle_ogg_install/">
 
 
 
@@ -139,7 +147,7 @@
   };
 </script>
 
-  <title>5分钟带你体验kubernetes集群伸缩功能 | 28code</title>
+  <title>Oracle11g GoldenGate系列一安装 | 28code</title>
   
 
 
@@ -376,7 +384,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://28code.com/2019/03/04/kubernetes_rc2/">
+    <link itemprop="mainEntityOfPage" href="http://28code.com/2018/11/09/oracle_ogg_install/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="28code">
@@ -393,7 +401,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">5分钟带你体验kubernetes集群伸缩功能
+          <h1 class="post-title" itemprop="name headline">Oracle11g GoldenGate系列一安装
               
             
           </h1>
@@ -418,7 +426,7 @@
                 
               
 
-              <time title="创建时间：2019-03-04 11:20:20" itemprop="dateCreated datePublished" datetime="2019-03-04T11:20:20+08:00">2019-03-04</time>
+              <time title="创建时间：2018-11-09 11:20:20" itemprop="dateCreated datePublished" datetime="2018-11-09T11:20:20+08:00">2018-11-09</time>
             
 
             
@@ -436,7 +444,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Oracle/" itemprop="url" rel="index"><span itemprop="name">Oracle</span></a></span>
 
                 
                 
@@ -478,19 +486,49 @@
 
       
         <p>作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。</p>
-<p>上一篇文章介绍了kubernetes集群扩展功能，这一篇文件带你来 5分钟带你体验kubernetes集群伸缩功能</p>
-<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>本文中我用到了docker的的镜像文件 28code/httpd:v1.0 ，系作者基于docker的busybox镜像做的一个docker image，主要功能是提供httpd服务并显示版本和pod信息。 启动28code/httpd:v1.0镜像时候会生成文件位于 /var/www/index.html，index.html记录了版本号V1和启动pod时候的pod名称，用来提供展示版本变更和访问时候显示访问的哪个pod的显示效果。</p>
-<h3 id="kubernetes-集群伸缩"><a href="#kubernetes-集群伸缩" class="headerlink" title="kubernetes 集群伸缩"></a>kubernetes 集群伸缩</h3><p>上次在master执行命令，部署docker镜像文件28code/httpd:v1.0，，镜像提供httpd服务，扩展为5个服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">扩展命令为</span><br><span class="line"># kubectl scale --replicas=5 deployment myapp</span><br><span class="line">deployment.extensions/myapp scaled</span><br><span class="line"></span><br><span class="line">查看pod运行情况</span><br><span class="line"># kubectl get pods -o wide</span><br><span class="line">NAME                     READY   STATUS    RESTARTS   AGE   IP            NODE             NOMINATED NODE   READINESS GATES</span><br><span class="line">myapp-799bbcd6b4-6697m   1/1     Running   0          57s   10.244.1.25   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-6tqkk   1/1     Running   0          96m   10.244.2.30   node02.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-kfqpw   1/1     Running   0          57s   10.244.1.26   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-p4dxz   1/1     Running   0          96m   10.244.1.24   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-xxxb9   1/1     Running   0          57s   10.244.2.31   node02.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>硬件环境：<br>我们使用VM虚拟机来安装两个Linux虚拟机。<br>虚拟机安装Oracle Linux 5.6 配置如下：<br>内存：2G<br>CPU：1个<br>磁盘：20G</p>
+<p>操作系统：<br>Red Hat Enterprise Linux Server release 5.6 (Tikanga)</p>
+<p>oracle数据库：<br>oracle 11.0.2.4</p>
+<table>
+<thead>
+<tr>
+<th>主机名</th>
+<th>ip地址</th>
+<th>SID</th>
+<th>安装目录</th>
+<th>端口号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>master(源端)</td>
+<td>192.168.110.66</td>
+<td>orcl</td>
+<td>/u01/app/ogg_master</td>
+<td>7809</td>
+</tr>
+<tr>
+<td>node01(目标)</td>
+<td>192.168.110.88</td>
+<td>orcl</td>
+<td>/u01/app/ogg_node01</td>
+<td>7809</td>
+</tr>
+</tbody>
+</table>
 <a id="more"></a> 
-<p>可以看到kubernetes现在有5个pod提供httpd服务。<br>如果我们现在想要伸缩，只需要3个pod提供httpd服务，只需执行命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># kubectl scale --replicas=3 deployment myapp</span><br><span class="line">deployment.extensions/myapp scaled</span><br><span class="line"></span><br><span class="line">查看pod运行情况</span><br><span class="line"># kubectl get pods -o wide</span><br><span class="line">NAME                     READY   STATUS        RESTARTS   AGE    IP            NODE             NOMINATED NODE   READINESS GATES</span><br><span class="line">myapp-799bbcd6b4-6697m   1/1     Running       0          17m    10.244.1.25   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-6tqkk   1/1     Running       0          113m   10.244.2.30   node02.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-kfqpw   0/1     Terminating   0          17m    10.244.1.26   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-p4dxz   1/1     Running       0          113m   10.244.1.24   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-xxxb9   0/1     Terminating   0          17m    10.244.2.31   node02.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line"></span><br><span class="line">可以看到kubernetes结束了2个pod，等候几秒再次查看pod运行情况，pod已经变成3个</span><br><span class="line"># kubectl get pods -o wide</span><br><span class="line">NAME                     READY   STATUS    RESTARTS   AGE    IP            NODE             NOMINATED NODE   READINESS GATES</span><br><span class="line">myapp-799bbcd6b4-6697m   1/1     Running   0          18m    10.244.1.25   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-6tqkk   1/1     Running   0          113m   10.244.2.30   node02.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-p4dxz   1/1     Running   0          113m   10.244.1.24   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br></pre></td></tr></table></figure>
-<p>在master节点分别访问3个pod节点查看httpd服务信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># curl 10.244.1.25</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-6697m</span><br><span class="line"># curl 10.244.2.30</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-6tqkk</span><br><span class="line"># curl 10.244.1.24</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-p4dxz</span><br></pre></td></tr></table></figure></p>
-<p>可以看到3个pod节点正常访问（V1代表版本信息，myapp-XXXXXX 是代表pods名称），显示了版本号和pod名称。</p>
-<p>此时我们来测试kubernetes LB功能<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">查看 service</span><br><span class="line"># kubectl get svc</span><br><span class="line">NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE</span><br><span class="line">kubernetes   ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP   72m</span><br><span class="line">myapp        ClusterIP   10.100.210.72   &lt;none&gt;        80/TCP    17m</span><br></pre></td></tr></table></figure></p>
-<p>在master节点执行命令展示LB的效果，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># curl 10.100.210.72</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-6697m</span><br><span class="line"># curl 10.100.210.72</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-6tqkk</span><br><span class="line"># curl 10.100.210.72</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-p4dxz</span><br><span class="line"># curl 10.100.210.72</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-6697m</span><br><span class="line"># curl 10.100.210.72</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-6tqkk</span><br></pre></td></tr></table></figure></p>
-<p>可以看到访问服务地址10.100.210.72后，分别均匀的访问到3个pod上的httpd服务</p>
-<p>以上是体验kubernetes集群伸缩功能整个过程</p>
+<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>下载和文档说明<br>下载地址:<a href="http://www.oracle.com/technetwork/middleware/goldengate/downloads/index.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/middleware/goldengate/downloads/index.html</a> 我下载的是Oracle GoldenGate 12.2.0.2版本的Oracle GoldenGate 12.2.0.2.2 for Oracle on Linux x86-64 (584 MB)<br>在线文档地址: <a href="https://docs.oracle.com/en/middleware/goldengate/index.html" target="_blank" rel="noopener">https://docs.oracle.com/en/middleware/goldengate/index.html</a><br>Oracle GoladenGate介绍: <a href="https://docs.oracle.com/goldengate/1212/gg-winux/GWUAD/wu_about_gg.htm#GWUAD110" target="_blank" rel="noopener">https://docs.oracle.com/goldengate/1212/gg-winux/GWUAD/wu_about_gg.htm#GWUAD110</a></p>
+<h3 id="master机器上目录和编辑环境变量"><a href="#master机器上目录和编辑环境变量" class="headerlink" title="master机器上目录和编辑环境变量"></a>master机器上目录和编辑环境变量</h3><p>oracle用户登录</p>
+<p>建立目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -p /u01/app/ogg_master</span><br></pre></td></tr></table></figure></p>
+<p>在oracle用户home目录下编辑环境变量（可根据实际路径填写,ORACLE_SID、ORACLE_HOME和LD_LIBRARY_PATH）<br>vi .bash_profile<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">export ORACLE_BASE=/u01/app/oracle</span><br><span class="line">export ORACLE_HOME=$ORACLE_BASE/product/11.2.0.4/db_1</span><br><span class="line">export ORACLE_SID=orcl</span><br><span class="line">export ORACLE_UNQNAME=mdb</span><br><span class="line">PATH=$ORACLE_HOME/bin:$PATH:$HOME/bin</span><br><span class="line">LD_LIBARY_PATH=$ORACLE_HOME/lib:$LD_LIBARY_PATH</span><br><span class="line">DISPLAY=192.168.110.1:0.0</span><br><span class="line">export LANG=C</span><br><span class="line">export ORACLE_BASE ORACLE_HOME ORACLE_SID PATH LD_LIBARY_PATH DISPLAY</span><br><span class="line">umask 022</span><br></pre></td></tr></table></figure></p>
+<h3 id="master机器上安装GoldenGate"><a href="#master机器上安装GoldenGate" class="headerlink" title="master机器上安装GoldenGate"></a>master机器上安装GoldenGate</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[oracle@master u01]$ unzip 122022_fbo_ggs_Linux_x64_shiphome.zip </span><br><span class="line">[oracle@master u01]$ cd fbo_ggs_Linux_x64_shiphome/</span><br><span class="line">[oracle@master fbo_ggs_Linux_x64_shiphome]$ cd Disk1/</span><br><span class="line">[oracle@master Disk1]$ ./runInstaller</span><br></pre></td></tr></table></figure>
+<p><img src="/images/post/20181109_01.jpg" alt><br>根据数据库版本选择对应的GoldenGate选项。<br><img src="/images/post/20181109_02.jpg" alt><br>更改GoldenGate Software安装位置，将其安装到/u01/app/ogg_master目录下，检查数据库安装位置是否正确，并配置端口。<br><img src="/images/post/20181109_03.jpg" alt><br>检查安装信息，确认无误后开始安装。<br><img src="/images/post/20181109_04.jpg" alt><br><img src="/images/post/20181109_05.jpg" alt><br>这样源端的安装就完成了。</p>
+<h3 id="node01机器上目录和编辑环境变量"><a href="#node01机器上目录和编辑环境变量" class="headerlink" title="node01机器上目录和编辑环境变量"></a>node01机器上目录和编辑环境变量</h3><p>oracle用户登录<br>建立目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -p /u01/app/ogg_node01</span><br></pre></td></tr></table></figure></p>
+<p>在oracle用户home目录下编辑环境变量（可根据实际路径填写,ORACLE_SID、ORACLE_HOME和LD_LIBRARY_PATH）<br>vi .bash_profile<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">export ORACLE_BASE=/u01/app/oracle</span><br><span class="line">export ORACLE_HOME=$ORACLE_BASE/product/11.2.0.4/db_1</span><br><span class="line">export ORACLE_SID=orcl</span><br><span class="line">export ORACLE_UNQNAME=dg01</span><br><span class="line">PATH=$ORACLE_HOME/bin:$PATH:$HOME/bin</span><br><span class="line">LD_LIBARY_PATH=$ORACLE_HOME/lib:$LD_LIBARY_PATH</span><br><span class="line">DISPLAY=192.168.110.1:0.0</span><br><span class="line">export LANG=C</span><br><span class="line">export ORACLE_BASE ORACLE_HOME ORACLE_SID PATH LD_LIBARY_PATH DISPLAY</span><br><span class="line">umask 022</span><br></pre></td></tr></table></figure></p>
+<h3 id="node01机器上安装GoldenGate"><a href="#node01机器上安装GoldenGate" class="headerlink" title="node01机器上安装GoldenGate"></a>node01机器上安装GoldenGate</h3><p>[oracle@node01 u01]$ unzip 122022_fbo_ggs_Linux_x64_shiphome.zip<br>[oracle@node01 u01]$ cd fbo_ggs_Linux_x64_shiphome/<br>[oracle@node01 fbo_ggs_Linux_x64_shiphome]$ cd Disk1/<br>[oracle@node01 Disk1]$ ./runInstaller </p>
+<p><img src="/images/post/20181109_01.jpg" alt><br>根据数据库版本选择对应的GoldenGate选项。<br><img src="/images/post/20181109_202.jpg" alt><br>更改GoldenGate Software安装位置，将其安装到/u01/app/ogg_master目录下，检查数据库安装位置是否正确，并配置端口。其他下一步完成目标端的安装。</p>
+<h3 id="master和node01机器上执行命令查看GoldenGate信息"><a href="#master和node01机器上执行命令查看GoldenGate信息" class="headerlink" title="master和node01机器上执行命令查看GoldenGate信息"></a>master和node01机器上执行命令查看GoldenGate信息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[oracle@master ~]$ which ggsci</span><br><span class="line">/u01/app/ogg_master/ggsci</span><br><span class="line">[oracle@master ~]$ /u01/app/ogg_master/ggsci</span><br><span class="line"></span><br><span class="line">Oracle GoldenGate Command Interpreter for Oracle</span><br><span class="line">Version 12.2.0.2.2 OGGCORE_12.2.0.2.0_PLATFORMS_170630.0419_FBO</span><br><span class="line">Linux, x64, 64bit (optimized), Oracle 11g on Jun 30 2017 14:42:26</span><br><span class="line">Operating system character set identified as UTF-8.</span><br><span class="line"></span><br><span class="line">Copyright (C) 1995, 2017, Oracle and/or its affiliates. All rights reserved.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">GGSCI (master) 1&gt; info mgr</span><br><span class="line"></span><br><span class="line">Manager is running (IP port master.7809, Process ID 7691).</span><br></pre></td></tr></table></figure>
+<p>至此Oracle11g GoldenGate安装完毕</p>
 
       
     </div>
@@ -514,11 +552,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/docker/" rel="tag"># docker</a>
+            <a href="/tags/Oracle/" rel="tag"># Oracle</a>
           
-            <a href="/tags/kubernetes/" rel="tag"># kubernetes</a>
+            <a href="/tags/Oracle11g/" rel="tag"># Oracle11g</a>
           
-            <a href="/tags/k8s/" rel="tag"># k8s</a>
+            <a href="/tags/GoldenGate/" rel="tag"># GoldenGate</a>
           
         </div>
       
@@ -531,8 +569,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/03/kubernetes_rc/" rel="next" title="5分钟带你体验kubernetes集群扩展功能">
-                <i class="fa fa-chevron-left"></i> 5分钟带你体验kubernetes集群扩展功能
+              <a href="/2018/10/09/oracle_dataguard2/" rel="next" title="Oracle11g DataGuard配置（一主二备）">
+                <i class="fa fa-chevron-left"></i> Oracle11g DataGuard配置（一主二备）
               </a>
             
           </div>
@@ -541,8 +579,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/05/kubernetes_ha/" rel="prev" title="5分钟带你体验kubernetes HA(High Available)高可用集群">
-                5分钟带你体验kubernetes HA(High Available)高可用集群 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/01/kubernetes_install/" rel="prev" title="kubernetes 1.13.4 安装过程">
+                kubernetes 1.13.4 安装过程 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -738,7 +776,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kubernetes-集群伸缩"><span class="nav-number">2.</span> <span class="nav-text">kubernetes 集群伸缩</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说明"><span class="nav-number">2.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#master机器上目录和编辑环境变量"><span class="nav-number">3.</span> <span class="nav-text">master机器上目录和编辑环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#master机器上安装GoldenGate"><span class="nav-number">4.</span> <span class="nav-text">master机器上安装GoldenGate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#node01机器上目录和编辑环境变量"><span class="nav-number">5.</span> <span class="nav-text">node01机器上目录和编辑环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#node01机器上安装GoldenGate"><span class="nav-number">6.</span> <span class="nav-text">node01机器上安装GoldenGate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#master和node01机器上执行命令查看GoldenGate信息"><span class="nav-number">7.</span> <span class="nav-text">master和node01机器上执行命令查看GoldenGate信息</span></a></li></ol></div>
             
 
           </div>
