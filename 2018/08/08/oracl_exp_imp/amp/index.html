@@ -2,89 +2,31 @@
 <html ⚡>
   <head>
     <meta charset="utf-8">
-    <link rel="canonical" href="http://28code.com/2018/11/09/oracle_ogg_install/" >
-    <title>Oracle11g GoldenGate系列一安装 - 28code</title>
+    <link rel="canonical" href="http://28code.com/2018/08/08/oracl_exp_imp/" >
+    <title>Oracle11g expdp impdp使用 - 28code</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     
-    <meta property="og:title" content="Oracle11g GoldenGate系列一安装">
+    <meta property="og:title" content="Oracle11g expdp impdp使用">
 	<meta property="og:type" content="article">
-	<meta property="og:url" content="http://28code.com/2018/11/09/oracle_ogg_install/">
+	<meta property="og:url" content="http://28code.com/2018/08/08/oracl_exp_imp/">
 	
-		<meta property="og:image" content="http://28code.com/images/post/20181109_01.jpg">
+		<meta property="og:image" content="/amp-dist/sample/sample-substituteTitleImage.png">
 	
 	<meta property="og:site_name" content="28code">
 	
 		<meta property="og:description" content="&lt;p&gt;作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。&lt;/p&gt;
-&lt;h3 id=&#34;环境准备&#34;&gt;&lt;a href=&#34;#环境准备&#34; class=&#34;headerlink&#34; title=&#34;环境准备&#34;&gt;&lt;/a&gt;环境准备&lt;/h3&gt;&lt;p&gt;硬件环境：&lt;br&gt;我们使用VM虚拟机来安装两个Linux虚拟机。&lt;br&gt;虚拟机安装Oracle Linux 5.6 配置如下：&lt;br&gt;内存：2G&lt;br&gt;CPU：1个&lt;br&gt;磁盘：20G&lt;/p&gt;
-&lt;p&gt;操作系统：&lt;br&gt;Red Hat Enterprise Linux Server release 5.6 (Tikanga)&lt;/p&gt;
-&lt;p&gt;oracle数据库：&lt;br&gt;oracle 11.0.2.4&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;主机名&lt;/th&gt;
-&lt;th&gt;ip地址&lt;/th&gt;
-&lt;th&gt;SID&lt;/th&gt;
-&lt;th&gt;安装目录&lt;/th&gt;
-&lt;th&gt;端口号&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;master(源端)&lt;/td&gt;
-&lt;td&gt;192.168.110.66&lt;/td&gt;
-&lt;td&gt;orcl&lt;/td&gt;
-&lt;td&gt;/u01/app/ogg_master&lt;/td&gt;
-&lt;td&gt;7809&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;node01(目标)&lt;/td&gt;
-&lt;td&gt;192.168.110.88&lt;/td&gt;
-&lt;td&gt;orcl&lt;/td&gt;
-&lt;td&gt;/u01/app/ogg_node01&lt;/td&gt;
-&lt;td&gt;7809&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;">
+&lt;p&gt;先检查目录，目录的定义可以查询dba_directories表，导入导出需要使用一个已经存在的目录定义，并且拥有目录使用权限&lt;br&gt;&lt;figure class=&#34;highlight plain&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;SQL&amp;gt; select owner,directory_name,directory_path from dba_directories;   &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;OWNER	   DIRECTORY_NAME		  DIRECTORY_PATH&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;---------- ------------------------------ --------------------------------------------------&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   LOCAL_FTP_DIR		  /home/oracle/temp&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   EXP_DIR			  /home/oracle/temp&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   UTLLOBDIR			  /home/oracle/temp&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   MYFILEPATH			  /home/oracle/temp/test&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   D_OUTPUT			  /home/oracle/temp&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   MY_DOCS			  /u01/app/oracle/&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   XMLDIR			  /opt/ora11/product/11.2/rdbms/xml&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   DMP_DIR			  /home/oracle&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   DATA_PUMP_DIR		  /opt/ora11/admin/gnnt/dpdump/&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   ORACLE_OCM_CONFIG_DIR	  /opt/ora11/product/11.2/ccr/state&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;">
 	
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content="28code">
-	<meta name="twitter:url" content="http://28code.com/2018/11/09/oracle_ogg_install/">
-	<meta name="twitter:title" content="Oracle11g GoldenGate系列一安装 - 28code">
+	<meta name="twitter:url" content="http://28code.com/2018/08/08/oracl_exp_imp/">
+	<meta name="twitter:title" content="Oracle11g expdp impdp使用 - 28code">
 	
 		<meta name="twitter:description" content="&lt;p&gt;作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。&lt;/p&gt;
-&lt;h3 id=&#34;环境准备&#34;&gt;&lt;a href=&#34;#环境准备&#34; class=&#34;headerlink&#34; title=&#34;环境准备&#34;&gt;&lt;/a&gt;环境准备&lt;/h3&gt;&lt;p&gt;硬件环境：&lt;br&gt;我们使用VM虚拟机来安装两个Linux虚拟机。&lt;br&gt;虚拟机安装Oracle Linux 5.6 配置如下：&lt;br&gt;内存：2G&lt;br&gt;CPU：1个&lt;br&gt;磁盘：20G&lt;/p&gt;
-&lt;p&gt;操作系统：&lt;br&gt;Red Hat Enterprise Linux Server release 5.6 (Tikanga)&lt;/p&gt;
-&lt;p&gt;oracle数据库：&lt;br&gt;oracle 11.0.2.4&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;主机名&lt;/th&gt;
-&lt;th&gt;ip地址&lt;/th&gt;
-&lt;th&gt;SID&lt;/th&gt;
-&lt;th&gt;安装目录&lt;/th&gt;
-&lt;th&gt;端口号&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;master(源端)&lt;/td&gt;
-&lt;td&gt;192.168.110.66&lt;/td&gt;
-&lt;td&gt;orcl&lt;/td&gt;
-&lt;td&gt;/u01/app/ogg_master&lt;/td&gt;
-&lt;td&gt;7809&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;node01(目标)&lt;/td&gt;
-&lt;td&gt;192.168.110.88&lt;/td&gt;
-&lt;td&gt;orcl&lt;/td&gt;
-&lt;td&gt;/u01/app/ogg_node01&lt;/td&gt;
-&lt;td&gt;7809&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;">
+&lt;p&gt;先检查目录，目录的定义可以查询dba_directories表，导入导出需要使用一个已经存在的目录定义，并且拥有目录使用权限&lt;br&gt;&lt;figure class=&#34;highlight plain&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;SQL&amp;gt; select owner,directory_name,directory_path from dba_directories;   &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;OWNER	   DIRECTORY_NAME		  DIRECTORY_PATH&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;---------- ------------------------------ --------------------------------------------------&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   LOCAL_FTP_DIR		  /home/oracle/temp&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   EXP_DIR			  /home/oracle/temp&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   UTLLOBDIR			  /home/oracle/temp&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   MYFILEPATH			  /home/oracle/temp/test&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   D_OUTPUT			  /home/oracle/temp&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   MY_DOCS			  /u01/app/oracle/&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   XMLDIR			  /opt/ora11/product/11.2/rdbms/xml&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   DMP_DIR			  /home/oracle&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   DATA_PUMP_DIR		  /opt/ora11/admin/gnnt/dpdump/&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   ORACLE_OCM_CONFIG_DIR	  /opt/ora11/product/11.2/ccr/state&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;">
 	
     
-    	<meta name="twitter:image" content="http://28code.com/images/post/20181109_01.jpg">
+    	<meta name="twitter:image" content="/amp-dist/sample/sample-substituteTitleImage.png">
 	
 	
 	
@@ -103,8 +45,6 @@
     
     
     
-      <script async custom-element="amp-mathml" src="https://cdn.ampproject.org/v0/amp-mathml-0.1.js"></script>
-    
     
     
     <script async src="https://cdn.ampproject.org/v0.js"></script>
@@ -112,52 +52,23 @@
 		{
 			"@context": "http://schema.org",
 			"@type": "BlogPosting",
-			"headline": "Oracle11g GoldenGate系列一安装",
+			"headline": "Oracle11g expdp impdp使用",
 			
 			"description": "&lt;p&gt;作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。&lt;/p&gt;
-&lt;h3 id=&#34;环境准备&#34;&gt;&lt;a href=&#34;#环境准备&#34; class=&#34;headerlink&#34; title=&#34;环境准备&#34;&gt;&lt;/a&gt;环境准备&lt;/h3&gt;&lt;p&gt;硬件环境：&lt;br&gt;我们使用VM虚拟机来安装两个Linux虚拟机。&lt;br&gt;虚拟机安装Oracle Linux 5.6 配置如下：&lt;br&gt;内存：2G&lt;br&gt;CPU：1个&lt;br&gt;磁盘：20G&lt;/p&gt;
-&lt;p&gt;操作系统：&lt;br&gt;Red Hat Enterprise Linux Server release 5.6 (Tikanga)&lt;/p&gt;
-&lt;p&gt;oracle数据库：&lt;br&gt;oracle 11.0.2.4&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;主机名&lt;/th&gt;
-&lt;th&gt;ip地址&lt;/th&gt;
-&lt;th&gt;SID&lt;/th&gt;
-&lt;th&gt;安装目录&lt;/th&gt;
-&lt;th&gt;端口号&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;master(源端)&lt;/td&gt;
-&lt;td&gt;192.168.110.66&lt;/td&gt;
-&lt;td&gt;orcl&lt;/td&gt;
-&lt;td&gt;/u01/app/ogg_master&lt;/td&gt;
-&lt;td&gt;7809&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;node01(目标)&lt;/td&gt;
-&lt;td&gt;192.168.110.88&lt;/td&gt;
-&lt;td&gt;orcl&lt;/td&gt;
-&lt;td&gt;/u01/app/ogg_node01&lt;/td&gt;
-&lt;td&gt;7809&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;",
+&lt;p&gt;先检查目录，目录的定义可以查询dba_directories表，导入导出需要使用一个已经存在的目录定义，并且拥有目录使用权限&lt;br&gt;&lt;figure class=&#34;highlight plain&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;SQL&amp;gt; select owner,directory_name,directory_path from dba_directories;   &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;OWNER	   DIRECTORY_NAME		  DIRECTORY_PATH&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;---------- ------------------------------ --------------------------------------------------&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   LOCAL_FTP_DIR		  /home/oracle/temp&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   EXP_DIR			  /home/oracle/temp&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   UTLLOBDIR			  /home/oracle/temp&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   MYFILEPATH			  /home/oracle/temp/test&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   D_OUTPUT			  /home/oracle/temp&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   MY_DOCS			  /u01/app/oracle/&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   XMLDIR			  /opt/ora11/product/11.2/rdbms/xml&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   DMP_DIR			  /home/oracle&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   DATA_PUMP_DIR		  /opt/ora11/admin/gnnt/dpdump/&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;SYS	   ORACLE_OCM_CONFIG_DIR	  /opt/ora11/product/11.2/ccr/state&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;",
 			
 			"mainEntityOfPage":{
 			    "@type":"WebPage",
-			    "@id":"http://28code.com/2018/11/09/oracle_ogg_install/"
+			    "@id":"http://28code.com/2018/08/08/oracl_exp_imp/"
 			},
-			"datePublished": "2018-11-09T03:20:20.000Z",
-			"dateModified": "2018-11-09T03:20:20.000Z",
+			"datePublished": "2018-08-08T03:20:20.000Z",
+			"dateModified": "2018-08-08T03:20:20.000Z",
 			
 			"image": {
 				"@type": "ImageObject",
-				"url": "http://28code.com/images/post/20181109_01.jpg",
-				"width" : "1002",
-				"height" : "761"
+				"url": "/amp-dist/sample/sample-substituteTitleImage.png",
+				"width" : "1024",
+				"height" : "800"
 			},
 			
 			"author": {
@@ -1863,7 +1774,7 @@ h6.categories {
   	<!-- container -->
   	<div id="container">
 	  	<div id="main">
-		    <article id="post-oracle_ogg_install" class="post">
+		    <article id="post-oracl_exp_imp" class="post">
 		    
 		   		<!-- categories and bread crumb -->
 		    	
@@ -1905,7 +1816,7 @@ h6.categories {
 						
 			          	<div class="header-thumb flx">
 			          		<div class="thumbImg-w circle">
-			          			<amp-img class="thumbImg" layout="fixed" width="131" height="100" src="http://28code.com/images/post/20181109_01.jpg">
+			          			<amp-img class="thumbImg" layout="fixed" width="128" height="100" src="/amp-dist/sample/sample-substituteTitleImage.png">
 			          			</amp-img>
 			          		</div>
 			          	</div>
@@ -1914,7 +1825,7 @@ h6.categories {
 			            <div class="header-cap flx">
 							
 							  <h1 class="article-title entry-title" itemprop="name">
-							    <a href="http://28code.com/2018/11/09/oracle_ogg_install/" target="_blank" itemprop="url">Oracle11g GoldenGate系列一安装</a>
+							    <a href="http://28code.com/2018/08/08/oracl_exp_imp/" target="_blank" itemprop="url">Oracle11g expdp impdp使用</a>
 							  </h1>
 							
 						</div>
@@ -1924,7 +1835,7 @@ h6.categories {
 					<div class="entry-meta-header">
 						<span class="meta-elements date">
 							<span class="fa fa-fw fa-clock-o"></span>
-							<time datetime="2018-11-09" itemprop="datePublished">2018.11.09</time>
+							<time datetime="2018-08-08" itemprop="datePublished">2018.08.08</time>
 						</span>
 					</div>
 				</div>
@@ -1942,49 +1853,14 @@ h6.categories {
                     
 			    	<!-- content -->
 			  		<p>&#x4F5C;&#x8005;&#x58F0;&#x660E;&#xFF1A;&#x672C;&#x7BC7;&#x6587;&#x7AE0;&#x7CFB;&#x672C;&#x4EBA;&#x4F9D;&#x7167;&#x771F;&#x5B9E;&#x90E8;&#x7F72;&#x8FC7;&#x7A0B;&#x539F;&#x521B;&#xFF0C;&#x672A;&#x7ECF;&#x8BB8;&#x53EF;&#xFF0C;&#x8C22;&#x7EDD;&#x8F6C;&#x8F7D;&#x3002;</p>
-<h3 id="&#x73AF;&#x5883;&#x51C6;&#x5907;"><a href="#&#x73AF;&#x5883;&#x51C6;&#x5907;" class="headerlink" title="&#x73AF;&#x5883;&#x51C6;&#x5907;"></a>&#x73AF;&#x5883;&#x51C6;&#x5907;</h3><p>&#x786C;&#x4EF6;&#x73AF;&#x5883;&#xFF1A;<br>&#x6211;&#x4EEC;&#x4F7F;&#x7528;VM&#x865A;&#x62DF;&#x673A;&#x6765;&#x5B89;&#x88C5;&#x4E24;&#x4E2A;Linux&#x865A;&#x62DF;&#x673A;&#x3002;<br>&#x865A;&#x62DF;&#x673A;&#x5B89;&#x88C5;Oracle Linux 5.6 &#x914D;&#x7F6E;&#x5982;&#x4E0B;&#xFF1A;<br>&#x5185;&#x5B58;&#xFF1A;2G<br>CPU&#xFF1A;1&#x4E2A;<br>&#x78C1;&#x76D8;&#xFF1A;20G</p>
-<p>&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#xFF1A;<br>Red Hat Enterprise Linux Server release 5.6 (Tikanga)</p>
-<p>oracle&#x6570;&#x636E;&#x5E93;&#xFF1A;<br>oracle 11.0.2.4</p>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>&#x4E3B;&#x673A;&#x540D;</th>
-<th>ip&#x5730;&#x5740;</th>
-<th>SID</th>
-<th>&#x5B89;&#x88C5;&#x76EE;&#x5F55;</th>
-<th>&#x7AEF;&#x53E3;&#x53F7;</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>master(&#x6E90;&#x7AEF;)</td>
-<td>192.168.110.66</td>
-<td>orcl</td>
-<td>/u01/app/ogg_master</td>
-<td>7809</td>
-</tr>
-<tr>
-<td>node01(&#x76EE;&#x6807;)</td>
-<td>192.168.110.88</td>
-<td>orcl</td>
-<td>/u01/app/ogg_node01</td>
-<td>7809</td>
-</tr>
-</tbody>
-</table></div>
+<p>&#x5148;&#x68C0;&#x67E5;&#x76EE;&#x5F55;&#xFF0C;&#x76EE;&#x5F55;&#x7684;&#x5B9A;&#x4E49;&#x53EF;&#x4EE5;&#x67E5;&#x8BE2;dba_directories&#x8868;&#xFF0C;&#x5BFC;&#x5165;&#x5BFC;&#x51FA;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x5DF2;&#x7ECF;&#x5B58;&#x5728;&#x7684;&#x76EE;&#x5F55;&#x5B9A;&#x4E49;&#xFF0C;&#x5E76;&#x4E14;&#x62E5;&#x6709;&#x76EE;&#x5F55;&#x4F7F;&#x7528;&#x6743;&#x9650;<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select owner,directory_name,directory_path from dba_directories;   </span><br><span class="line"></span><br><span class="line">OWNER	   DIRECTORY_NAME		  DIRECTORY_PATH</span><br><span class="line">---------- ------------------------------ --------------------------------------------------</span><br><span class="line">SYS	   LOCAL_FTP_DIR		  /home/oracle/temp</span><br><span class="line">SYS	   EXP_DIR			  /home/oracle/temp</span><br><span class="line">SYS	   UTLLOBDIR			  /home/oracle/temp</span><br><span class="line">SYS	   MYFILEPATH			  /home/oracle/temp/test</span><br><span class="line">SYS	   D_OUTPUT			  /home/oracle/temp</span><br><span class="line">SYS	   MY_DOCS			  /u01/app/oracle/</span><br><span class="line">SYS	   XMLDIR			  /opt/ora11/product/11.2/rdbms/xml</span><br><span class="line">SYS	   DMP_DIR			  /home/oracle</span><br><span class="line">SYS	   DATA_PUMP_DIR		  /opt/ora11/admin/gnnt/dpdump/</span><br><span class="line">SYS	   ORACLE_OCM_CONFIG_DIR	  /opt/ora11/product/11.2/ccr/state</span><br></pre></td></tr></tbody></table></figure>
 <a id="more"></a> 
-<h3 id="&#x8BF4;&#x660E;"><a href="#&#x8BF4;&#x660E;" class="headerlink" title="&#x8BF4;&#x660E;"></a>&#x8BF4;&#x660E;</h3><p>&#x4E0B;&#x8F7D;&#x548C;&#x6587;&#x6863;&#x8BF4;&#x660E;<br>&#x4E0B;&#x8F7D;&#x5730;&#x5740;:<br><a href="http://www.oracle.com/technetwork/middleware/goldengate/downloads/index.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/middleware/goldengate/downloads/index.html</a><br>&#x6211;&#x4E0B;&#x8F7D;&#x7684;&#x662F;Oracle GoldenGate 12.2.0.2&#x7248;&#x672C;&#x7684;Oracle GoldenGate 12.2.0.2.2 for Oracle on Linux x86-64 (584 MB)<br>&#x5728;&#x7EBF;&#x6587;&#x6863;&#x5730;&#x5740;:<br><a href="https://docs.oracle.com/en/middleware/goldengate/index.html" target="_blank" rel="noopener">https://docs.oracle.com/en/middleware/goldengate/index.html</a><br>Oracle GoladenGate&#x4ECB;&#x7ECD;:<br><a href="https://docs.oracle.com/goldengate/1212/gg-winux/GWUAD/wu_about_gg.htm#GWUAD110" target="_blank" rel="noopener">https://docs.oracle.com/goldengate/1212/gg-winux/GWUAD/wu_about_gg.htm#GWUAD110</a></p>
-<h3 id="master&#x673A;&#x5668;&#x4E0A;&#x76EE;&#x5F55;&#x548C;&#x7F16;&#x8F91;&#x73AF;&#x5883;&#x53D8;&#x91CF;"><a href="#master&#x673A;&#x5668;&#x4E0A;&#x76EE;&#x5F55;&#x548C;&#x7F16;&#x8F91;&#x73AF;&#x5883;&#x53D8;&#x91CF;" class="headerlink" title="master&#x673A;&#x5668;&#x4E0A;&#x76EE;&#x5F55;&#x548C;&#x7F16;&#x8F91;&#x73AF;&#x5883;&#x53D8;&#x91CF;"></a>master&#x673A;&#x5668;&#x4E0A;&#x76EE;&#x5F55;&#x548C;&#x7F16;&#x8F91;&#x73AF;&#x5883;&#x53D8;&#x91CF;</h3><p>oracle&#x7528;&#x6237;&#x767B;&#x5F55;</p>
-<p>&#x5EFA;&#x7ACB;&#x76EE;&#x5F55;<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -p /u01/app/ogg_master</span><br></pre></td></tr></tbody></table></figure>
-<p>&#x5728;oracle&#x7528;&#x6237;home&#x76EE;&#x5F55;&#x4E0B;&#x7F16;&#x8F91;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#xFF08;&#x53EF;&#x6839;&#x636E;&#x5B9E;&#x9645;&#x8DEF;&#x5F84;&#x586B;&#x5199;,ORACLE_SID&#x3001;ORACLE_HOME&#x548C;LD_LIBRARY_PATH&#xFF09;<br>vi .bash_profile<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">export ORACLE_BASE=/u01/app/oracle</span><br><span class="line">export ORACLE_HOME=$ORACLE_BASE/product/11.2.0.4/db_1</span><br><span class="line">export ORACLE_SID=orcl</span><br><span class="line">export ORACLE_UNQNAME=mdb</span><br><span class="line">PATH=$ORACLE_HOME/bin:$PATH:$HOME/bin</span><br><span class="line">LD_LIBARY_PATH=$ORACLE_HOME/lib:$LD_LIBARY_PATH</span><br><span class="line">DISPLAY=192.168.110.1:0.0</span><br><span class="line">export LANG=C</span><br><span class="line">export ORACLE_BASE ORACLE_HOME ORACLE_SID PATH LD_LIBARY_PATH DISPLAY</span><br><span class="line">umask 022</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="master&#x673A;&#x5668;&#x4E0A;&#x5B89;&#x88C5;GoldenGate"><a href="#master&#x673A;&#x5668;&#x4E0A;&#x5B89;&#x88C5;GoldenGate" class="headerlink" title="master&#x673A;&#x5668;&#x4E0A;&#x5B89;&#x88C5;GoldenGate"></a>master&#x673A;&#x5668;&#x4E0A;&#x5B89;&#x88C5;GoldenGate</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[oracle@master u01]$ unzip 122022_fbo_ggs_Linux_x64_shiphome.zip </span><br><span class="line">[oracle@master u01]$ cd fbo_ggs_Linux_x64_shiphome/</span><br><span class="line">[oracle@master fbo_ggs_Linux_x64_shiphome]$ cd Disk1/</span><br><span class="line">[oracle@master Disk1]$ ./runInstaller</span><br></pre></td></tr></tbody></table></figure>
-<div class="amp-img-wrapper"><amp-img src="/images/post/20181109_01.jpg" width="1002" height="761" layout="responsive"></amp-img></div><br>&#x6839;&#x636E;&#x6570;&#x636E;&#x5E93;&#x7248;&#x672C;&#x9009;&#x62E9;&#x5BF9;&#x5E94;&#x7684;GoldenGate&#x9009;&#x9879;&#x3002;<br><div class="amp-img-wrapper"><amp-img src="/images/post/20181109_02.jpg" width="1002" height="761" layout="responsive"></amp-img></div><br>&#x66F4;&#x6539;GoldenGate Software&#x5B89;&#x88C5;&#x4F4D;&#x7F6E;&#xFF0C;&#x5C06;&#x5176;&#x5B89;&#x88C5;&#x5230;/u01/app/ogg_master&#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x68C0;&#x67E5;&#x6570;&#x636E;&#x5E93;&#x5B89;&#x88C5;&#x4F4D;&#x7F6E;&#x662F;&#x5426;&#x6B63;&#x786E;&#xFF0C;&#x5E76;&#x914D;&#x7F6E;&#x7AEF;&#x53E3;&#x3002;<br><div class="amp-img-wrapper"><amp-img src="/images/post/20181109_03.jpg" width="1002" height="761" layout="responsive"></amp-img></div><br>&#x68C0;&#x67E5;&#x5B89;&#x88C5;&#x4FE1;&#x606F;&#xFF0C;&#x786E;&#x8BA4;&#x65E0;&#x8BEF;&#x540E;&#x5F00;&#x59CB;&#x5B89;&#x88C5;&#x3002;<br><div class="amp-img-wrapper"><amp-img src="/images/post/20181109_04.jpg" width="1002" height="761" layout="responsive"></amp-img></div><br><div class="amp-img-wrapper"><amp-img src="/images/post/20181109_05.jpg" width="1002" height="761" layout="responsive"></amp-img></div><br>&#x8FD9;&#x6837;&#x6E90;&#x7AEF;&#x7684;&#x5B89;&#x88C5;&#x5C31;&#x5B8C;&#x6210;&#x4E86;&#x3002;
-<h3 id="node01&#x673A;&#x5668;&#x4E0A;&#x76EE;&#x5F55;&#x548C;&#x7F16;&#x8F91;&#x73AF;&#x5883;&#x53D8;&#x91CF;"><a href="#node01&#x673A;&#x5668;&#x4E0A;&#x76EE;&#x5F55;&#x548C;&#x7F16;&#x8F91;&#x73AF;&#x5883;&#x53D8;&#x91CF;" class="headerlink" title="node01&#x673A;&#x5668;&#x4E0A;&#x76EE;&#x5F55;&#x548C;&#x7F16;&#x8F91;&#x73AF;&#x5883;&#x53D8;&#x91CF;"></a>node01&#x673A;&#x5668;&#x4E0A;&#x76EE;&#x5F55;&#x548C;&#x7F16;&#x8F91;&#x73AF;&#x5883;&#x53D8;&#x91CF;</h3><p>oracle&#x7528;&#x6237;&#x767B;&#x5F55;<br>&#x5EFA;&#x7ACB;&#x76EE;&#x5F55;<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -p /u01/app/ogg_node01</span><br></pre></td></tr></tbody></table></figure>
-<p>&#x5728;oracle&#x7528;&#x6237;home&#x76EE;&#x5F55;&#x4E0B;&#x7F16;&#x8F91;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#xFF08;&#x53EF;&#x6839;&#x636E;&#x5B9E;&#x9645;&#x8DEF;&#x5F84;&#x586B;&#x5199;,ORACLE_SID&#x3001;ORACLE_HOME&#x548C;LD_LIBRARY_PATH&#xFF09;<br>vi .bash_profile<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">export ORACLE_BASE=/u01/app/oracle</span><br><span class="line">export ORACLE_HOME=$ORACLE_BASE/product/11.2.0.4/db_1</span><br><span class="line">export ORACLE_SID=orcl</span><br><span class="line">export ORACLE_UNQNAME=node01</span><br><span class="line">PATH=$ORACLE_HOME/bin:$PATH:$HOME/bin</span><br><span class="line">LD_LIBARY_PATH=$ORACLE_HOME/lib:$LD_LIBARY_PATH</span><br><span class="line">DISPLAY=192.168.110.1:0.0</span><br><span class="line">export LANG=C</span><br><span class="line">export ORACLE_BASE ORACLE_HOME ORACLE_SID PATH LD_LIBARY_PATH DISPLAY</span><br><span class="line">umask 022</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="node01&#x673A;&#x5668;&#x4E0A;&#x5B89;&#x88C5;GoldenGate"><a href="#node01&#x673A;&#x5668;&#x4E0A;&#x5B89;&#x88C5;GoldenGate" class="headerlink" title="node01&#x673A;&#x5668;&#x4E0A;&#x5B89;&#x88C5;GoldenGate"></a>node01&#x673A;&#x5668;&#x4E0A;&#x5B89;&#x88C5;GoldenGate</h3><p>[oracle@node01 u01]<amp-mathml layout="container" inline data-formula="\[ unzip 122022_fbo_ggs_Linux_x64_shiphome.zip&lt;br&gt;[oracle@node01 u01]\]"></amp-mathml> cd fbo_ggs_Linux_x64_shiphome/<br>[oracle@node01 fbo_ggs_Linux_x64_shiphome]<amp-mathml layout="container" inline data-formula="\[ cd Disk1/&lt;br&gt;[oracle@node01 Disk1]\]"></amp-mathml> ./runInstaller </p>
-<div class="amp-img-wrapper"><amp-img src="/images/post/20181109_01.jpg" width="1002" height="761" layout="responsive"></amp-img></div><br>&#x6839;&#x636E;&#x6570;&#x636E;&#x5E93;&#x7248;&#x672C;&#x9009;&#x62E9;&#x5BF9;&#x5E94;&#x7684;GoldenGate&#x9009;&#x9879;&#x3002;<br><div class="amp-img-wrapper"><amp-img src="/images/post/20181109_202.jpg" width="1002" height="761" layout="responsive"></amp-img></div><br>&#x66F4;&#x6539;GoldenGate Software&#x5B89;&#x88C5;&#x4F4D;&#x7F6E;&#xFF0C;&#x5C06;&#x5176;&#x5B89;&#x88C5;&#x5230;/u01/app/ogg_master&#x76EE;&#x5F55;&#x4E0B;&#xFF0C;&#x68C0;&#x67E5;&#x6570;&#x636E;&#x5E93;&#x5B89;&#x88C5;&#x4F4D;&#x7F6E;&#x662F;&#x5426;&#x6B63;&#x786E;&#xFF0C;&#x5E76;&#x914D;&#x7F6E;&#x7AEF;&#x53E3;&#x3002;&#x5176;&#x4ED6;&#x4E0B;&#x4E00;&#x6B65;&#x5B8C;&#x6210;&#x76EE;&#x6807;&#x7AEF;&#x7684;&#x5B89;&#x88C5;&#x3002;
-<h3 id="master&#x548C;node01&#x673A;&#x5668;&#x4E0A;&#x6267;&#x884C;&#x547D;&#x4EE4;&#x67E5;&#x770B;GoldenGate&#x4FE1;&#x606F;"><a href="#master&#x548C;node01&#x673A;&#x5668;&#x4E0A;&#x6267;&#x884C;&#x547D;&#x4EE4;&#x67E5;&#x770B;GoldenGate&#x4FE1;&#x606F;" class="headerlink" title="master&#x548C;node01&#x673A;&#x5668;&#x4E0A;&#x6267;&#x884C;&#x547D;&#x4EE4;&#x67E5;&#x770B;GoldenGate&#x4FE1;&#x606F;"></a>master&#x548C;node01&#x673A;&#x5668;&#x4E0A;&#x6267;&#x884C;&#x547D;&#x4EE4;&#x67E5;&#x770B;GoldenGate&#x4FE1;&#x606F;</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[oracle@master ~]$ which ggsci</span><br><span class="line">/u01/app/ogg_master/ggsci</span><br><span class="line">[oracle@master ~]$ /u01/app/ogg_master/ggsci</span><br><span class="line"></span><br><span class="line">Oracle GoldenGate Command Interpreter for Oracle</span><br><span class="line">Version 12.2.0.2.2 OGGCORE_12.2.0.2.0_PLATFORMS_170630.0419_FBO</span><br><span class="line">Linux, x64, 64bit (optimized), Oracle 11g on Jun 30 2017 14:42:26</span><br><span class="line">Operating system character set identified as UTF-8.</span><br><span class="line"></span><br><span class="line">Copyright (C) 1995, 2017, Oracle and/or its affiliates. All rights reserved.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">GGSCI (master) 1&gt; info mgr</span><br><span class="line"></span><br><span class="line">Manager is running (IP port master.7809, Process ID 7691).</span><br></pre></td></tr></tbody></table></figure>
-<p>&#x81F3;&#x6B64;Oracle11g GoldenGate&#x5B89;&#x88C5;&#x5B8C;&#x6BD5;</p>
+<p>&#x4E5F;&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x65B0;&#x76EE;&#x5F55;<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">--&#x521B;&#x5EFA;DIRECTORY</span><br><span class="line">create directory exp_dp as &apos;/home/oracle/temp&apos;; </span><br><span class="line">--&#x6388;&#x6743;&#x76EE;&#x5F55;&#x4F7F;&#x7528;&#x7ED9;&#x7528;&#x6237;</span><br><span class="line">Grant read,write on directory exp_dp to test;</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x786E;&#x8BA4;&#x6570;&#x636E;&#x5E93;&#x7684;&#x5B57;&#x7B26;&#x96C6;&#xFF0C;&#x786E;&#x8BA4;&#x5BFC;&#x51FA;&#x7AEF;&#x5B57;&#x7B26;&#x96C6;&#x548C;&#x5BFC;&#x5165;&#x7AEF;&#x5B57;&#x7B26;&#x96C6;&#x4E00;&#x81F4;&#xFF08;NLS_CHARACTERSET &#x663E;&#x793A;&#x5B57;&#x7B26;&#x96C6;&#x4E3A;ZHS16GBK&#xFF09;<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select * from nls_database_parameters;</span><br><span class="line"></span><br><span class="line">PARAMETER		       VALUE</span><br><span class="line">------------------------------ --------------------------------------------------------------------------------</span><br><span class="line">NLS_LANGUAGE		       AMERICAN</span><br><span class="line">NLS_TERRITORY		       AMERICA</span><br><span class="line">NLS_CURRENCY		       $</span><br><span class="line">NLS_ISO_CURRENCY	       AMERICA</span><br><span class="line">NLS_NUMERIC_CHARACTERS	       .,</span><br><span class="line">NLS_CHARACTERSET	       ZHS16GBK</span><br><span class="line">NLS_CALENDAR		       GREGORIAN</span><br><span class="line">NLS_DATE_FORMAT 	       DD-MON-RR</span><br><span class="line">NLS_DATE_LANGUAGE	       AMERICAN</span><br><span class="line">NLS_SORT		       BINARY</span><br><span class="line">NLS_TIME_FORMAT 	       HH.MI.SSXFF AM</span><br><span class="line">NLS_TIMESTAMP_FORMAT	       DD-MON-RR HH.MI.SSXFF AM</span><br><span class="line">NLS_TIME_TZ_FORMAT	       HH.MI.SSXFF AM TZR</span><br><span class="line">NLS_TIMESTAMP_TZ_FORMAT        DD-MON-RR HH.MI.SSXFF AM TZR</span><br><span class="line">NLS_DUAL_CURRENCY	       $</span><br><span class="line">NLS_COMP		       BINARY</span><br><span class="line">NLS_LENGTH_SEMANTICS	       BYTE</span><br><span class="line">NLS_NCHAR_CONV_EXCP	       FALSE</span><br><span class="line">NLS_NCHAR_CHARACTERSET	       AL16UTF16</span><br><span class="line">NLS_RDBMS_VERSION	       11.2.0.2.0</span><br></pre></td></tr></tbody></table></figure>
+<p>expdp &#x5BFC;&#x51FA;&#x6570;&#x636E;&#x5E93;&#x7528;&#x6237;&#x4E3A;test&#x7684;&#x6240;&#x6709;&#x5BF9;&#x8C61;&#xFF08;&#x524D;&#x63D0;test&#x7528;&#x6237;&#x6709;exp_full_database&#x6743;&#x9650;imp_full_database&#x6743;&#x9650;&#xFF09;</p>
+<p>&#x2013;&#x53EA;&#x5BFC;&#x51FA;&#x6570;&#x636E;&#x5E93;&#x5BF9;&#x8C61;&#x5B9A;&#x4E49; &#x4F7F;&#x7528; content=metadata_only<br>&#x2013;CONTENT={ALL | DATA_ONLY | METADATA_ONLY} &#x6709;&#x4E09;&#x4E2A;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;(&#x6240;&#x6709; | &#x6570;&#x636E;  | &#x5B9A;&#x4E49;)<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expdp test/password schemas=test content=metadata_only directory=EXP_DIR  dumpfile=test.dmp  logfile=test.log ;</span><br></pre></td></tr></tbody></table></figure>
+<p>expdp &#x5BFC;&#x51FA;&#x8868;&#x6309;&#x67E5;&#x8BE2;&#x6761;&#x4EF6;&#x5BFC;&#x51FA;<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">vi file.exp</span><br><span class="line">DUMPFILE=test.dmp</span><br><span class="line">DIRECTORY=EXP_DIR</span><br><span class="line">TABLES=</span><br><span class="line">(</span><br><span class="line">table1&#xFF0C;table2</span><br><span class="line">)</span><br><span class="line">QUERY=</span><br><span class="line">(</span><br><span class="line">table1:&quot;where id=&apos;40a581d1431efe890143227206922314&apos;&quot;</span><br><span class="line">)</span><br><span class="line">--&#x4FDD;&#x5B58;&#x6587;&#x4EF6;</span><br><span class="line">expdp test/password parfile=file.exp</span><br></pre></td></tr></tbody></table></figure>
+<p>impdp &#x5BFC;&#x5165;&#x6570;&#x636E;&#x5E93;&#x7528;&#x6237;&#x4E3A;test&#x7684;&#x6240;&#x6709;&#x5BF9;&#x8C61;&#xFF08;&#x524D;&#x63D0;test&#x7528;&#x6237;&#x6709;exp_full_database&#x6743;&#x9650;imp_full_database&#x6743;&#x9650;&#xFF09;<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">impdp test/password directory=EXP_DIR dumpfile=test.dmp logfile=test.log ;</span><br><span class="line">--&#x5982;&#x679C;&#x9700;&#x8981;&#x7531;test&#x7528;&#x6237;&#x5BFC;&#x5165;&#x4E3A; test2&#x7528;&#x6237;&#xFF0C;&#x53EF;&#x4F7F;&#x7528;remap_schema</span><br><span class="line">impdp test/password directory=EXP_DIR dumpfile=test.dmp logfile=test.log remap_schema=test:test2;</span><br><span class="line">--&#x4E24;&#x4E2A;&#x6570;&#x636E;&#x5E93;&#x8868;&#x7A7A;&#x95F4;&#x4E0D;&#x4E00;&#x81F4;&#xFF0C;&#x53EF;&#x4F7F;&#x7528;remap_schema</span><br><span class="line">impdp test/password directory=EXP_DIR dumpfile=test.dmp logfile=test.log remap_tablespace=user:user2;</span><br></pre></td></tr></tbody></table></figure>
 
 			  		
 			  		<!-- google Adsense -->
@@ -2024,8 +1900,14 @@ h6.categories {
 					    		</li>
 							
 					    		<li class="article-tag-list-item">
-					    			<a class="article-tag-list-link" href="/tags/GoldenGate/">
-					    				GoldenGate
+					    			<a class="article-tag-list-link" href="/tags/expdp/">
+					    				expdp
+					    			</a>
+					    		</li>
+							
+					    		<li class="article-tag-list-item">
+					    			<a class="article-tag-list-link" href="/tags/impdp/">
+					    				impdp
 					    			</a>
 					    		</li>
 							

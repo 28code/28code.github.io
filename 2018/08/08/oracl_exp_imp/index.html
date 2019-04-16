@@ -109,20 +109,18 @@
 
 
 
-  <meta name="description" content="作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 上一篇文章介绍了kubernetes kubernetes RollingUpdate滚动升级镜像回滚，这一篇文章带你来 5分钟带你体验kubernetes 对外提供访问  环境准备本文是之前环境的延续。 kubernetes 对外提供访问在master我们执行命令查看pod12345#  kubectl get pods -o">
-<meta name="keywords" content="docker,kubernetes,k8s">
+  <meta name="description" content="作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 先检查目录，目录的定义可以查询dba_directories表，导入导出需要使用一个已经存在的目录定义，并且拥有目录使用权限1234567891011121314SQL&amp;gt; select owner,directory_name,directory_path from dba_directories;   OWNER	   D">
+<meta name="keywords" content="Oracle,Oracle11g,expdp,impdp">
 <meta property="og:type" content="article">
-<meta property="og:title" content="5分钟带你体验kubernetes 对外提供访问">
-<meta property="og:url" content="http://28code.com/2019/03/08/kubernetes_nodeport/index.html">
+<meta property="og:title" content="Oracle11g expdp impdp使用">
+<meta property="og:url" content="http://28code.com/2018/08/08/oracl_exp_imp/index.html">
 <meta property="og:site_name" content="28code">
-<meta property="og:description" content="作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 上一篇文章介绍了kubernetes kubernetes RollingUpdate滚动升级镜像回滚，这一篇文章带你来 5分钟带你体验kubernetes 对外提供访问  环境准备本文是之前环境的延续。 kubernetes 对外提供访问在master我们执行命令查看pod12345#  kubectl get pods -o">
+<meta property="og:description" content="作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 先检查目录，目录的定义可以查询dba_directories表，导入导出需要使用一个已经存在的目录定义，并且拥有目录使用权限1234567891011121314SQL&amp;gt; select owner,directory_name,directory_path from dba_directories;   OWNER	   D">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://28code.com/images/post/20190307_01.jpg">
-<meta property="og:updated_time" content="2019-03-08T03:20:20.000Z">
+<meta property="og:updated_time" content="2018-08-08T03:20:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="5分钟带你体验kubernetes 对外提供访问">
-<meta name="twitter:description" content="作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 上一篇文章介绍了kubernetes kubernetes RollingUpdate滚动升级镜像回滚，这一篇文章带你来 5分钟带你体验kubernetes 对外提供访问  环境准备本文是之前环境的延续。 kubernetes 对外提供访问在master我们执行命令查看pod12345#  kubectl get pods -o">
-<meta name="twitter:image" content="http://28code.com/images/post/20190307_01.jpg">
+<meta name="twitter:title" content="Oracle11g expdp impdp使用">
+<meta name="twitter:description" content="作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。 先检查目录，目录的定义可以查询dba_directories表，导入导出需要使用一个已经存在的目录定义，并且拥有目录使用权限1234567891011121314SQL&amp;gt; select owner,directory_name,directory_path from dba_directories;   OWNER	   D">
 
 
 
@@ -131,7 +129,7 @@
 
 
 
-  <link rel="canonical" href="http://28code.com/2019/03/08/kubernetes_nodeport/">
+  <link rel="canonical" href="http://28code.com/2018/08/08/oracl_exp_imp/">
 
 
 
@@ -141,7 +139,7 @@
   };
 </script>
 
-  <title>5分钟带你体验kubernetes 对外提供访问 | 28code</title>
+  <title>Oracle11g expdp impdp使用 | 28code</title>
   
 
 
@@ -378,7 +376,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://28code.com/2019/03/08/kubernetes_nodeport/">
+    <link itemprop="mainEntityOfPage" href="http://28code.com/2018/08/08/oracl_exp_imp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="28code">
@@ -395,7 +393,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">5分钟带你体验kubernetes 对外提供访问
+          <h1 class="post-title" itemprop="name headline">Oracle11g expdp impdp使用
               
             
           </h1>
@@ -420,7 +418,7 @@
                 
               
 
-              <time title="创建时间：2019-03-08 11:20:20" itemprop="dateCreated datePublished" datetime="2019-03-08T11:20:20+08:00">2019-03-08</time>
+              <time title="创建时间：2018-08-08 11:20:20" itemprop="dateCreated datePublished" datetime="2018-08-08T11:20:20+08:00">2018-08-08</time>
             
 
             
@@ -438,7 +436,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Oracle/" itemprop="url" rel="index"><span itemprop="name">Oracle</span></a></span>
 
                 
                 
@@ -480,21 +478,14 @@
 
       
         <p>作者声明：本篇文章系本人依照真实部署过程原创，未经许可，谢绝转载。</p>
-<p>上一篇文章介绍了kubernetes kubernetes RollingUpdate滚动升级镜像回滚，这一篇文章带你来 5分钟带你体验kubernetes 对外提供访问 </p>
-<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>本文是之前环境的延续。</p>
-<h3 id="kubernetes-对外提供访问"><a href="#kubernetes-对外提供访问" class="headerlink" title="kubernetes 对外提供访问"></a>kubernetes 对外提供访问</h3><p>在master我们执行命令查看pod<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#  kubectl get pods -o wide</span><br><span class="line">NAME                     READY   STATUS    RESTARTS   AGE   IP            NODE             NOMINATED NODE   READINESS GATES</span><br><span class="line">myapp-799bbcd6b4-8nz5g   1/1     Running   0          91s   10.244.1.30   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-jms4x   1/1     Running   0          92s   10.244.1.29   node01.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">myapp-799bbcd6b4-l7q6v   1/1     Running   0          89s   10.244.2.34   node02.k8s.com   &lt;none&gt;           &lt;none&gt;</span><br></pre></td></tr></table></figure></p>
+<p>先检查目录，目录的定义可以查询dba_directories表，导入导出需要使用一个已经存在的目录定义，并且拥有目录使用权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select owner,directory_name,directory_path from dba_directories;   </span><br><span class="line"></span><br><span class="line">OWNER	   DIRECTORY_NAME		  DIRECTORY_PATH</span><br><span class="line">---------- ------------------------------ --------------------------------------------------</span><br><span class="line">SYS	   LOCAL_FTP_DIR		  /home/oracle/temp</span><br><span class="line">SYS	   EXP_DIR			  /home/oracle/temp</span><br><span class="line">SYS	   UTLLOBDIR			  /home/oracle/temp</span><br><span class="line">SYS	   MYFILEPATH			  /home/oracle/temp/test</span><br><span class="line">SYS	   D_OUTPUT			  /home/oracle/temp</span><br><span class="line">SYS	   MY_DOCS			  /u01/app/oracle/</span><br><span class="line">SYS	   XMLDIR			  /opt/ora11/product/11.2/rdbms/xml</span><br><span class="line">SYS	   DMP_DIR			  /home/oracle</span><br><span class="line">SYS	   DATA_PUMP_DIR		  /opt/ora11/admin/gnnt/dpdump/</span><br><span class="line">SYS	   ORACLE_OCM_CONFIG_DIR	  /opt/ora11/product/11.2/ccr/state</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a> 
-<p>在master我们执行命令查看service<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">查看 service</span><br><span class="line"># kubectl get svc</span><br><span class="line">NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE</span><br><span class="line">kubernetes   ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP   72m</span><br><span class="line">myapp        ClusterIP   10.100.210.72   &lt;none&gt;        80/TCP    17m</span><br></pre></td></tr></table></figure></p>
-<p>我们想要访问pod，目前只能在虚拟机的节点上访问，10.244.XXX.XXX的网址或者通过service服务的ip访问，<br>如果我们想要在虚拟机之外访问集群内部的地址，这个时候我们需要执行命令修改service的文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">master上执行命令</span><br><span class="line"># kubectl edit svc myapp</span><br></pre></td></tr></table></figure>
-<p>得到如下信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># Please edit the object below. Lines beginning with a &apos;#&apos; will be ignored,</span><br><span class="line"># and an empty file will abort the edit. If an error occurs while saving this file will be</span><br><span class="line"># reopened with the relevant failures.</span><br><span class="line">#</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  creationTimestamp: &quot;2019-03-07T05:53:57Z&quot;</span><br><span class="line">  labels:</span><br><span class="line">    run: myapp</span><br><span class="line">  name: myapp</span><br><span class="line">  namespace: default</span><br><span class="line">  resourceVersion: &quot;5195&quot;</span><br><span class="line">  selfLink: /api/v1/namespaces/default/services/myapp</span><br><span class="line">  uid: 38910862-4942-11e9-bbc4-000c296cc22a</span><br><span class="line">spec:</span><br><span class="line">  clusterIP: 10.100.210.72</span><br><span class="line">  ports:</span><br><span class="line">  - port: 80</span><br><span class="line">    protocol: TCP</span><br><span class="line">    targetPort: 80</span><br><span class="line">  selector:</span><br><span class="line">    run: myapp</span><br><span class="line">  sessionAffinity: None</span><br><span class="line">  type: ClusterIP</span><br><span class="line">status:</span><br><span class="line">  loadBalancer: &#123;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>找到  type: ClusterIP  修改为 type: NodePort<br>修改后结果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># Please edit the object below. Lines beginning with a &apos;#&apos; will be ignored,</span><br><span class="line"># and an empty file will abort the edit. If an error occurs while saving this file will be</span><br><span class="line"># reopened with the relevant failures.</span><br><span class="line">#</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  creationTimestamp: &quot;2019-03-18T05:53:57Z&quot;</span><br><span class="line">  labels:</span><br><span class="line">    run: myapp</span><br><span class="line">  name: myapp</span><br><span class="line">  namespace: default</span><br><span class="line">  resourceVersion: &quot;5195&quot;</span><br><span class="line">  selfLink: /api/v1/namespaces/default/services/myapp</span><br><span class="line">  uid: 38910862-4942-11e9-bbc4-000c296cc22a</span><br><span class="line">spec:</span><br><span class="line">  clusterIP: 10.100.210.72</span><br><span class="line">  ports:</span><br><span class="line">  - port: 80</span><br><span class="line">    protocol: TCP</span><br><span class="line">    targetPort: 80</span><br><span class="line">  selector:</span><br><span class="line">    run: myapp</span><br><span class="line">  sessionAffinity: None</span><br><span class="line">  type: NodePort</span><br><span class="line">status:</span><br><span class="line">  loadBalancer: &#123;&#125;</span><br></pre></td></tr></table></figure>
-<p>保存退出<br>再次查看service<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># kubectl get svc</span><br><span class="line">NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE</span><br><span class="line">kubernetes   ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP        4h14m</span><br><span class="line">myapp        NodePort    10.100.210.72   &lt;none&gt;        80:32313/TCP   3h19m</span><br></pre></td></tr></table></figure></p>
-<p>发现myapp service的prot变为 80:32313/TCP，32313为master主机对外访问的端口号。<br>master的ip为 192.168.110.140，此时我们想要在虚拟机外部访问集群内部pod，需要使用 <strong> <a href="http://192.168.110.140:32313" target="_blank" rel="noopener">http://192.168.110.140:32313</a> </strong>。<br>在master节点上执行命令查看效果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># curl http://192.168.110.140:32313</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-l7q6v</span><br><span class="line"># curl http://192.168.110.140:32313</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-jms4x</span><br><span class="line"># curl http://192.168.110.140:32313</span><br><span class="line">V1</span><br><span class="line">myapp-799bbcd6b4-8nz5g</span><br><span class="line"># curl http://192.168.110.140:32313</span><br></pre></td></tr></table></figure></p>
-<p>同时我在虚拟机的外部机器上访问 <strong> <a href="http://192.168.110.140:32313" target="_blank" rel="noopener">http://192.168.110.140:32313</a> </strong> </p>
-<p><img src="/images/post/20190307_01.jpg" alt></p>
-<p>以上是kubernetes 对外提供访问 整个过程</p>
+<p>也可以创建新目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">--创建DIRECTORY</span><br><span class="line">create directory exp_dp as &apos;/home/oracle/temp&apos;; </span><br><span class="line">--授权目录使用给用户</span><br><span class="line">Grant read,write on directory exp_dp to test;</span><br></pre></td></tr></table></figure></p>
+<p>确认数据库的字符集，确认导出端字符集和导入端字符集一致（NLS_CHARACTERSET 显示字符集为ZHS16GBK）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; select * from nls_database_parameters;</span><br><span class="line"></span><br><span class="line">PARAMETER		       VALUE</span><br><span class="line">------------------------------ --------------------------------------------------------------------------------</span><br><span class="line">NLS_LANGUAGE		       AMERICAN</span><br><span class="line">NLS_TERRITORY		       AMERICA</span><br><span class="line">NLS_CURRENCY		       $</span><br><span class="line">NLS_ISO_CURRENCY	       AMERICA</span><br><span class="line">NLS_NUMERIC_CHARACTERS	       .,</span><br><span class="line">NLS_CHARACTERSET	       ZHS16GBK</span><br><span class="line">NLS_CALENDAR		       GREGORIAN</span><br><span class="line">NLS_DATE_FORMAT 	       DD-MON-RR</span><br><span class="line">NLS_DATE_LANGUAGE	       AMERICAN</span><br><span class="line">NLS_SORT		       BINARY</span><br><span class="line">NLS_TIME_FORMAT 	       HH.MI.SSXFF AM</span><br><span class="line">NLS_TIMESTAMP_FORMAT	       DD-MON-RR HH.MI.SSXFF AM</span><br><span class="line">NLS_TIME_TZ_FORMAT	       HH.MI.SSXFF AM TZR</span><br><span class="line">NLS_TIMESTAMP_TZ_FORMAT        DD-MON-RR HH.MI.SSXFF AM TZR</span><br><span class="line">NLS_DUAL_CURRENCY	       $</span><br><span class="line">NLS_COMP		       BINARY</span><br><span class="line">NLS_LENGTH_SEMANTICS	       BYTE</span><br><span class="line">NLS_NCHAR_CONV_EXCP	       FALSE</span><br><span class="line">NLS_NCHAR_CHARACTERSET	       AL16UTF16</span><br><span class="line">NLS_RDBMS_VERSION	       11.2.0.2.0</span><br></pre></td></tr></table></figure></p>
+<p>expdp 导出数据库用户为test的所有对象（前提test用户有exp_full_database权限imp_full_database权限）</p>
+<p>–只导出数据库对象定义 使用 content=metadata_only<br>–CONTENT={ALL | DATA_ONLY | METADATA_ONLY} 有三个参数可以使用(所有 | 数据  | 定义)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expdp test/password schemas=test content=metadata_only directory=EXP_DIR  dumpfile=test.dmp  logfile=test.log ;</span><br></pre></td></tr></table></figure></p>
+<p>expdp 导出表按查询条件导出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">vi file.exp</span><br><span class="line">DUMPFILE=test.dmp</span><br><span class="line">DIRECTORY=EXP_DIR</span><br><span class="line">TABLES=</span><br><span class="line">(</span><br><span class="line">table1，table2</span><br><span class="line">)</span><br><span class="line">QUERY=</span><br><span class="line">(</span><br><span class="line">table1:&quot;where id=&apos;40a581d1431efe890143227206922314&apos;&quot;</span><br><span class="line">)</span><br><span class="line">--保存文件</span><br><span class="line">expdp test/password parfile=file.exp</span><br></pre></td></tr></table></figure></p>
+<p>impdp 导入数据库用户为test的所有对象（前提test用户有exp_full_database权限imp_full_database权限）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">impdp test/password directory=EXP_DIR dumpfile=test.dmp logfile=test.log ;</span><br><span class="line">--如果需要由test用户导入为 test2用户，可使用remap_schema</span><br><span class="line">impdp test/password directory=EXP_DIR dumpfile=test.dmp logfile=test.log remap_schema=test:test2;</span><br><span class="line">--两个数据库表空间不一致，可使用remap_schema</span><br><span class="line">impdp test/password directory=EXP_DIR dumpfile=test.dmp logfile=test.log remap_tablespace=user:user2;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -518,11 +509,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/docker/" rel="tag"># docker</a>
+            <a href="/tags/Oracle/" rel="tag"># Oracle</a>
           
-            <a href="/tags/kubernetes/" rel="tag"># kubernetes</a>
+            <a href="/tags/Oracle11g/" rel="tag"># Oracle11g</a>
           
-            <a href="/tags/k8s/" rel="tag"># k8s</a>
+            <a href="/tags/expdp/" rel="tag"># expdp</a>
+          
+            <a href="/tags/impdp/" rel="tag"># impdp</a>
           
         </div>
       
@@ -535,15 +528,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/07/kubernetes_rub/" rel="next" title="5分钟带你体验kubernetes RollingUpdate滚动升级镜像回滚">
-                <i class="fa fa-chevron-left"></i> 5分钟带你体验kubernetes RollingUpdate滚动升级镜像回滚
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/08/oracle_dataguard/" rel="prev" title="Oracle11g DataGuard配置（一主一备）">
+                Oracle11g DataGuard配置（一主一备） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -588,17 +581,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -732,22 +716,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kubernetes-对外提供访问"><span class="nav-number">2.</span> <span class="nav-text">kubernetes 对外提供访问</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
